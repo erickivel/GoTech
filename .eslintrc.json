@@ -78,7 +78,8 @@
       }
     ],
     "prettier/prettier": "error",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "max-classes-per-file": "off"
   },
   "settings": {
     "import/resolver": {

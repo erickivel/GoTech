@@ -1,0 +1,3 @@
+interface IDomainError {
+  message: string;
+}
