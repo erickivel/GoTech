@@ -3,6 +3,7 @@ import { InvalidEmailError } from "../../domain/entities/errors/InvalidEmailErro
 import { InvalidNameError } from "../../domain/entities/errors/InvalidNameError";
 import { InvalidPasswordError } from "../../domain/entities/errors/InvalidPasswordError";
 import { User } from "../../domain/entities/User";
+import { IEncoder } from "../ports/IEncoder";
 import { IUsersRepository } from "../ports/IUsersRepository";
 import { UserAlreadyExistsError } from "./errors/UserAlreadyExistsError";
 
@@ -13,7 +14,10 @@ interface IRequest {
 }
 
 export class CreateUserUseCase {
-  constructor(private usersRepository: IUsersRepository) { }
+  constructor(
+    private usersRepository: IUsersRepository,
+    private encoder: IEncoder,
+  ) { }
 
   async execute({
     name,
@@ -35,7 +39,6 @@ export class CreateUserUseCase {
     }
 
     const userOrError = User.create({
-      id: "awdwd",
       name,
       email,
       password,
@@ -45,7 +48,12 @@ export class CreateUserUseCase {
       return left(userOrError.value);
     }
 
-    await this.usersRepository.create(userOrError.value);
+    const passwordHash = await this.encoder.encode(userOrError.value.password);
+
+    await this.usersRepository.create({
+      ...userOrError.value,
+      password: passwordHash
+    });
 
     return right(null);
   }
