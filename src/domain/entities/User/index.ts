@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import { Either, left, right } from "../../../core/logic/Either";
 import { InvalidEmailError } from "../errors/InvalidEmailError";
 import { InvalidNameError } from "../errors/InvalidNameError";
@@ -19,8 +21,8 @@ export class User {
   public readonly password: string;
   public readonly createdAt: Date;
 
-  private constructor(props: Omit<UserProps, "createdAt">) {
-    this.id = props.id;
+  private constructor(props: Omit<UserProps, "createdAt" | "id">) {
+    this.id = crypto.randomUUID();
     this.name = props.name;
     this.email = props.email;
     this.password = props.password;
@@ -28,7 +30,7 @@ export class User {
   }
 
   static create(
-    props: Omit<UserProps, "createdAt">
+    props: Omit<UserProps, "createdAt" | "id">
   ): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> {
     const validate = User.validate(props);
 
@@ -42,7 +44,7 @@ export class User {
   }
 
   public static validate(
-    props: Omit<UserProps, "createdAt">
+    props: Omit<UserProps, "createdAt" | "id">
   ): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, true> {
     const { name, email, password } = props;
 

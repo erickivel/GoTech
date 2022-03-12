@@ -6,7 +6,6 @@ import { User } from "../../src/domain/entities/User";
 describe("User Validator", () => {
   it("should create a user", () => {
     const user = {
-      id: "fake-id",
       name: "Valid Name",
       email: "fake.email@example.com",
       password: "password",
@@ -21,7 +20,6 @@ describe("User Validator", () => {
     const largeName = "n".repeat(256);
 
     const userWithLargeName = {
-      id: "fake-id",
       name: largeName,
       email: "fake.email@example.com",
       password: "password",
@@ -30,7 +28,6 @@ describe("User Validator", () => {
     const createdUserWithLargeName = User.create(userWithLargeName);
 
     const userWithShortName = {
-      id: "fake-id",
       name: "1",
       email: "fake.email@example.com",
       password: "password",
@@ -48,7 +45,6 @@ describe("User Validator", () => {
 
   it("should not create a user with an invalid email", () => {
     const userWithInvalidEmail = {
-      id: "fake-id",
       name: "Valid Name",
       email: "invalid_email",
       password: "password",
@@ -59,7 +55,6 @@ describe("User Validator", () => {
     const largeDomain = "c".repeat(70);
 
     const userWithLargeEmail = {
-      id: "fake-id",
       name: "Valid Name",
       email: `invalid@${largeDomain}.com`,
       password: "password",
@@ -70,7 +65,6 @@ describe("User Validator", () => {
     const largeEmail = "c".repeat(260);
 
     const userWithoutEmail = {
-      id: "fake-id",
       name: "Valid Name",
       email: `email@${largeEmail}.com`,
       password: "password",

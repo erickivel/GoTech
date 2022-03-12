@@ -1,27 +1,31 @@
 import { CreateUserUseCase } from "../../../src/useCases/users/CreateUserUseCase";
+import { FakeEncoder } from "../../doubles/FakeEncoder";
 import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
 
-describe("Create User", () => {
-  let createUserUseCase: CreateUserUseCase;
+describe("CreateUser UseCase", () => {
   let usersRepositoryInMemory: UsersRepositoryInMemory;
+  let fakeEncoder: FakeEncoder;
+  let createUserUseCase: CreateUserUseCase;
 
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    fakeEncoder = new FakeEncoder();
+    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory, fakeEncoder);
   });
 
   it("should be able to create a new user", async () => {
     const user = {
-      id: "dawwd",
       name: "John",
       email: "john@example.com",
       password: "password",
     };
 
-    await createUserUseCase.execute(user);
+    const userOrError = await createUserUseCase.execute(user);
 
-    const createUser = await usersRepositoryInMemory.findByEmail(user.email);
+    const createdUser = await usersRepositoryInMemory.findByEmail(user.email);
 
-    expect(createUser).toHaveProperty("name");
+    expect(userOrError.isRight()).toBe(true);
+    expect(createdUser).toHaveProperty("id");
+    expect(createdUser?.password).not.toBe(user.password);
   });
 });
