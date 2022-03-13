@@ -24,6 +24,8 @@ export default {
     "<rootDir>/src/domain/entities/**/*.ts",
     "<rootDir>/src/useCases/**/*.ts",
     "<rootDir>/!src/useCases/ports/*.ts",
+    "<rootDir>/src/controllers/**/*.ts",
+    "<rootDir>/!src/controllers/ports/*.ts",
   ],
 
   // The directory where Jest should output its coverage files
@@ -124,10 +126,10 @@ export default {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  setupFiles: ['<rootDir>/jest.setup.ts'],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
