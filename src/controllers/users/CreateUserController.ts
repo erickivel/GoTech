@@ -1,5 +1,3 @@
-// import { container } from "tsyringe";
-
 import { container } from "tsyringe";
 
 import { CreateUserUseCase } from "../../useCases/users/CreateUserUseCase";
@@ -12,10 +10,6 @@ import { badRequest, created, forbidden, serverError } from "../utils/HttpRespon
 import { IsRequiredParamsMissing } from "../utils/IsRequiredParamsMissing";
 
 export class CreateUserController implements IController {
-  // constructor(
-  //   private createUserUseCase: CreateUserUseCase,
-  // ) { }
-
   readonly requiredParams = ["name", "email", "password"];
 
   async handle(request: IHttpRequest): Promise<IHttpResponse> {

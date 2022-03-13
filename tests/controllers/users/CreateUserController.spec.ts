@@ -54,7 +54,7 @@ describe("Create User Controller", () => {
     const result = await createUserController.handle(fakeRequest);
 
     expect(result.statusCode).toBe(403);
-    expect(result.body).toBeInstanceOf(UserAlreadyExistsError);
+    expect(result.body).toEqual(`User with email "john@example.com" already exists!`);
   });
 
   it("should return status code 400 when an invalid email is passed", async () => {
@@ -68,7 +68,7 @@ describe("Create User Controller", () => {
 
     const result = await createUserController.handle(fakeRequest);
     expect(result.statusCode).toBe(400);
-    expect(result.body).toBeInstanceOf(InvalidEmailError);
+    expect(result.body).toEqual(`"invalid-email" is an invalid email`);
   });
 
   it("should return status code 400 when an invalid name is passed", async () => {
@@ -83,7 +83,7 @@ describe("Create User Controller", () => {
     const result = await createUserController.handle(fakeRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toBeInstanceOf(InvalidNameError);
+    expect(result.body).toEqual(`"1" is an invalid name`);
   });
 
   it("should return status code 400 when an invalid password is passed", async () => {
@@ -98,7 +98,7 @@ describe("Create User Controller", () => {
     const result = await createUserController.handle(fakeRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toBeInstanceOf(InvalidPasswordError);
+    expect(result.body).toEqual("Invalid Password");
   });
 
   it("should return status code 400 when the name is missing", async () => {
@@ -112,8 +112,7 @@ describe("Create User Controller", () => {
     const result = await createUserController.handle(fakeRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toBeInstanceOf(MissingParamError);
-    expect((result.body as Error).message).toEqual("Missing parameter(s): name.")
+    expect(result.body).toEqual("Missing parameter(s): name.")
   });
 
   it("should return status code 400 when the email is missing", async () => {
@@ -127,8 +126,7 @@ describe("Create User Controller", () => {
     const result = await createUserController.handle(fakeRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toBeInstanceOf(MissingParamError);
-    expect((result.body as Error).message).toEqual("Missing parameter(s): email.")
+    expect(result.body).toEqual("Missing parameter(s): email.")
   });
 
   it("should return status code 400 when the password is missing", async () => {
@@ -142,8 +140,7 @@ describe("Create User Controller", () => {
     const result = await createUserController.handle(fakeRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toBeInstanceOf(MissingParamError);
-    expect((result.body as Error).message).toEqual("Missing parameter(s): password.")
+    expect(result.body).toEqual("Missing parameter(s): password.")
   });
 
   it("should return status code 400 when the name, email, password are missing", async () => {
@@ -155,7 +152,6 @@ describe("Create User Controller", () => {
     const result = await createUserController.handle(fakeRequest);
 
     expect(result.statusCode).toBe(400);
-    expect(result.body).toBeInstanceOf(MissingParamError);
-    expect((result.body as Error).message).toEqual("Missing parameter(s): name, email, password.")
+    expect(result.body).toEqual("Missing parameter(s): name, email, password.")
   });
 })
