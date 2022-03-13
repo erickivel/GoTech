@@ -10,12 +10,12 @@ export const created = (data: any): IHttpResponse => ({
   body: data
 })
 
-export const forbidden = (error: Error): IHttpResponse => ({
+export const forbidden = (error: any): IHttpResponse => ({
   statusCode: 403,
   body: error
 })
 
-export const badRequest = (error: Error): IHttpResponse => ({
+export const badRequest = (error: any): IHttpResponse => ({
   statusCode: 400,
   body: error
 })
