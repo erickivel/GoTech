@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe';
+
 import { Either, left, right } from "../../core/logic/Either";
 import { InvalidEmailError } from "../../domain/entities/errors/InvalidEmailError";
 import { InvalidNameError } from "../../domain/entities/errors/InvalidNameError";
@@ -13,9 +15,12 @@ interface IRequest {
   password: string;
 }
 
+@injectable()
 export class CreateUserUseCase {
   constructor(
+    @inject("UsersRepository")
     private usersRepository: IUsersRepository,
+    @inject("Encoder")
     private encoder: IEncoder,
   ) { }
 
