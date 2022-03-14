@@ -1,13 +1,8 @@
 import { container } from "tsyringe";
 
-import { MissingParamError } from "../../../src/controllers/errors/MissingParamError";
 import { CreateUserController } from "../../../src/controllers/users/CreateUserController";
-import { InvalidEmailError } from "../../../src/domain/entities/errors/InvalidEmailError";
-import { InvalidNameError } from "../../../src/domain/entities/errors/InvalidNameError";
-import { InvalidPasswordError } from "../../../src/domain/entities/errors/InvalidPasswordError";
 import { IEncoder } from "../../../src/useCases/ports/IEncoder";
 import { IUsersRepository } from "../../../src/useCases/ports/IUsersRepository";
-import { UserAlreadyExistsError } from "../../../src/useCases/users/errors/UserAlreadyExistsError";
 import { FakeEncoder } from "../../doubles/FakeEncoder";
 import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
 
