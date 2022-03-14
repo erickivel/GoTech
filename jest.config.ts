@@ -27,6 +27,7 @@ export default {
     "<rootDir>/src/controllers/**/*.ts",
     "<rootDir>/!src/controllers/ports/*.ts",
     "<rootDir>/src/infra/**/*.ts",
+    "<rootDir>/!src/infra/http/server.ts",
   ],
 
   // The directory where Jest should output its coverage files
