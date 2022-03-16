@@ -8,12 +8,13 @@
   "scripts": {
     "prisma:migrate": "dotenv -e .env.development -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma",
     "dev": "dotenv -e .env.development -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma && dotenv -e .env.development -- ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/infra/http/server.ts",
-    "test": "dotenv -e .env.test -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma && dotenv -e .env.test -- jest"
+    "test": "dotenv -e .env.test -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma && dotenv -e .env.test -- jest --runInBand"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
@@ -39,6 +40,7 @@
     "bcrypt": "^5.0.1",
     "dotenv-cli": "^5.0.0",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.6.0"
   }
