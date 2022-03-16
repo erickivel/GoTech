@@ -5,5 +5,15 @@ export class FakeEncoder implements IEncoder {
     const hash = `${plain}Encripted`;
 
     return hash;
-  }
+  };
+
+  async compare(plain: string, hash: string): Promise<boolean> {
+    const plainHashed = `${plain}Encripted`;
+
+    if (plainHashed === hash) {
+      return true;
+    }
+
+    return false;
+  };
 }
