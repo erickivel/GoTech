@@ -35,8 +35,6 @@ describe("SignIn User Route", () => {
       })
       .expect(200);
 
-    console.log(response.body);
-
     expect(response.body).toHaveProperty("user");
     expect(response.body).toHaveProperty("token");
   });
