@@ -1,4 +1,4 @@
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 import { IAuthenticationTokenProvider } from "../../useCases/ports/IAuthenticationTokenProvider";
 import authConfig from './config';
@@ -13,5 +13,15 @@ export class JwtAuthenticationTokenProvider implements IAuthenticationTokenProvi
     });
 
     return token;
+  }
+
+  verify(token: string): string | undefined {
+    try {
+      const { sub } = verify(token, secretKey);
+
+      return sub?.toString();
+    } catch (err) {
+      return undefined;
+    }
   }
 }
