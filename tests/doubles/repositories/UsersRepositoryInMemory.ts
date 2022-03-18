@@ -4,8 +4,16 @@ import { IUsersRepository } from "../../../src/useCases/ports/IUsersRepository";
 export class UsersRepositoryInMemory implements IUsersRepository {
   users: IUserData[] = [];
 
-  async create(data: IUserData): Promise<void> {
+  async create(data: IUserData): Promise<Omit<IUserData, "password" | "createdAt">> {
     this.users.push(data);
+
+    const user = {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+    };
+
+    return user;
   };
 
   async findByEmail(email: string): Promise<IUserData | null> {

@@ -15,6 +15,12 @@ interface IRequest {
   password: string;
 }
 
+export interface IResponse {
+  id: string;
+  name: string;
+  email: string;
+};
+
 @injectable()
 export class CreateUserUseCase {
   constructor(
@@ -34,7 +40,7 @@ export class CreateUserUseCase {
       | InvalidNameError
       | InvalidEmailError
       | InvalidPasswordError,
-      null
+      IResponse
     >
   > {
     const userExists = await this.usersRepository.findByEmail(email);
@@ -55,11 +61,11 @@ export class CreateUserUseCase {
 
     const passwordHash = await this.encoder.encode(userOrError.value.password);
 
-    await this.usersRepository.create({
+    const user = await this.usersRepository.create({
       ...userOrError.value,
       password: passwordHash
     });
 
-    return right(null);
+    return right(user);
   }
 }
