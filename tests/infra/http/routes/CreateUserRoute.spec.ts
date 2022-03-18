@@ -15,7 +15,7 @@ describe("Create User Route", () => {
 
   it("should return status code 201 when user is created", async () => {
     const response = await request(app)
-      .post("/cadastrar")
+      .post("/users/signup")
       .send({
         name: "User",
         email: "user@example.com",
