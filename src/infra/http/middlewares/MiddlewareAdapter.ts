@@ -8,7 +8,9 @@ export function MiddlewareRouteAdapter(middleware: IMiddleware) {
   ): Promise<void> => {
     const httpResponse = await middleware.handle(request);
 
-    response.status(httpResponse.statusCode).json(httpResponse.body);
+    if (httpResponse.statusCode !== 200) {
+      response.status(httpResponse.statusCode).json(httpResponse.body);
+    }
 
     if (httpResponse.statusCode === 200) {
       next();

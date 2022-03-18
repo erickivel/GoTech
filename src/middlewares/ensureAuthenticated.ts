@@ -7,7 +7,7 @@ import { IMiddleware } from "./ports/IMiddleware";
 import { unauthorized, ok, serverError } from "./utils/HttpResponses";
 
 @injectable()
-export class ensureAuthenticated implements IMiddleware {
+export class EnsureAuthenticated implements IMiddleware {
   constructor(
     @inject("AuthenticationTokenProvider")
     private authenticationTokenProvider: IAuthenticationTokenProvider,
