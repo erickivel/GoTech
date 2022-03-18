@@ -1,7 +1,7 @@
 import { container } from "tsyringe";
 
 import { JwtAuthenticationTokenProvider } from "../../src/infra/authentication/JwtAuthenticationTokenProvider";
-import { ensureAuthenticated } from "../../src/middlewares/ensureAuthenticated";
+import { EnsureAuthenticated } from "../../src/middlewares/ensureAuthenticated";
 import { IAuthenticationTokenProvider } from "../../src/useCases/ports/IAuthenticationTokenProvider";
 
 describe("Ensure Authenticated Middleware", () => {
@@ -10,7 +10,7 @@ describe("Ensure Authenticated Middleware", () => {
   })
 
   it("should return status code 200 and successful message if the user is authenticated", async () => {
-    const ensureAuthenticatedMiddleware = container.resolve(ensureAuthenticated);
+    const ensureAuthenticatedMiddleware = container.resolve(EnsureAuthenticated);
 
     const authenticationTokenProvider = new JwtAuthenticationTokenProvider();
     const fakeToken = authenticationTokenProvider.generateToken("fake-id");
@@ -28,7 +28,7 @@ describe("Ensure Authenticated Middleware", () => {
   });
 
   it("should return status code 401 if the token is missing", async () => {
-    const ensureAuthenticatedMiddleware = container.resolve(ensureAuthenticated);
+    const ensureAuthenticatedMiddleware = container.resolve(EnsureAuthenticated);
 
     const fakeRequest = {
       headers: {
@@ -43,7 +43,7 @@ describe("Ensure Authenticated Middleware", () => {
   });
 
   it("should return status code 401 if the token is invalid", async () => {
-    const ensureAuthenticatedMiddleware = container.resolve(ensureAuthenticated);
+    const ensureAuthenticatedMiddleware = container.resolve(EnsureAuthenticated);
 
     const fakeRequest = {
       headers: {
