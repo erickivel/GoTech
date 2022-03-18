@@ -24,7 +24,7 @@ describe("SignIn User Controller", () => {
   });
 
 
-  it("should return status code 200, user ant token on body if user is successful authenticated", async () => {
+  it("should return status code 200, user and token on body if user is successful authenticated", async () => {
     const createUserUseCase = container.resolve(CreateUserUseCase);
 
     await createUserUseCase.execute({
