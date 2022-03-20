@@ -20,7 +20,7 @@ describe("Create User Controller", () => {
   });
 
 
-  it("should return status code 201 and successful message when user is successful created", async () => {
+  it("should return status code 201 and successful message when user is successfully created", async () => {
     const fakeRequest = {
       body: {
         name: "John",
