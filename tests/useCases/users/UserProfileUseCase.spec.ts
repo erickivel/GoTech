@@ -24,6 +24,7 @@ describe("User Profile UseCase", () => {
       email: "john@example.com",
       password: hashedPassword,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const userOrError = await userProfileUseCase.execute({ user_id: "fake-id" });
@@ -48,6 +49,7 @@ describe("User Profile UseCase", () => {
       email: "john@example.com",
       password: hashedPassword,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const invalidId = "invalid-id";

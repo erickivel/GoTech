@@ -28,6 +28,7 @@ describe("SignIn User UseCase", () => {
       email: "john@example.com",
       password: hashedPassword,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const resultOrError = await signInUserUseCase.execute({
@@ -49,6 +50,7 @@ describe("SignIn User UseCase", () => {
       email: "john@example.com",
       password: hashedPassword,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const resultOrError = await signInUserUseCase.execute({
@@ -69,6 +71,7 @@ describe("SignIn User UseCase", () => {
       email: "john@example.com",
       password: hashedPassword,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const resultOrError = await signInUserUseCase.execute({
@@ -89,6 +92,7 @@ describe("SignIn User UseCase", () => {
       email: "john@example.com",
       password: hashedPassword,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const resultOrError = await signInUserUseCase.execute({
