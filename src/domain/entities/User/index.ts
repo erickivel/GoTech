@@ -12,6 +12,7 @@ type UserProps = {
   email: string;
   password: string;
   createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export class User {
@@ -20,6 +21,7 @@ export class User {
   public readonly email: string;
   public readonly password: string;
   public readonly createdAt: Date;
+  public readonly updatedAt: Date;
 
   private constructor(props: UserProps) {
     this.id = props.id || crypto.randomUUID();
@@ -27,6 +29,7 @@ export class User {
     this.email = props.email;
     this.password = props.password;
     this.createdAt = props.createdAt || new Date();
+    this.updatedAt = props.updatedAt || new Date();
   };
 
   static create(
