@@ -37,7 +37,7 @@ describe("User Profile Route", () => {
     const { token } = signInResponse.body;
 
     const response = await request(app)
-      .post("/users/profile")
+      .get("/users/profile")
       .set({
         Authorization: `Bearer ${token}`
       })
@@ -55,7 +55,7 @@ describe("User Profile Route", () => {
 
   it("should return status code 401 and body with unauthorized message if token is invalid", async () => {
     const response = await request(app)
-      .post("/users/profile")
+      .get("/users/profile")
       .set({
         Authorization: `Bearer invalid-token`
       })
@@ -66,7 +66,7 @@ describe("User Profile Route", () => {
 
   it("should return status code 401 and body with unauthorized message if token is missing", async () => {
     const response = await request(app)
-      .post("/users/profile")
+      .get("/users/profile")
       .expect(401);
 
     expect(response.body).toEqual("Token is missing!");

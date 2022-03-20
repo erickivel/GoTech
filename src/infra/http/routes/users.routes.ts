@@ -16,4 +16,4 @@ const userProfileController = new UserProfileController();
 
 usersRoutes.post("/signup", routeAdapter(createUserController));
 usersRoutes.post("/signin", routeAdapter(signInUserController));
-usersRoutes.post("/profile", adaptedEnsureAuthenticated, routeAdapter(userProfileController));
+usersRoutes.get("/profile", adaptedEnsureAuthenticated, routeAdapter(userProfileController));
