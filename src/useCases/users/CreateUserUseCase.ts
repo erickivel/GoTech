@@ -66,6 +66,12 @@ export class CreateUserUseCase {
       password: passwordHash
     });
 
-    return right(user);
+    const userMapped = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    }
+
+    return right(userMapped);
   }
 }
