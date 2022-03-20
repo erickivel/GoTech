@@ -7,11 +7,11 @@ import { InvalidPasswordError } from "../errors/InvalidPasswordError";
 import { valid } from "./ValidateEmail";
 
 type UserProps = {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
-  createdAt: Date;
+  createdAt?: Date;
 };
 
 export class User {
@@ -21,16 +21,16 @@ export class User {
   public readonly password: string;
   public readonly createdAt: Date;
 
-  private constructor(props: Omit<UserProps, "createdAt" | "id">) {
-    this.id = crypto.randomUUID();
+  private constructor(props: UserProps) {
+    this.id = props.id || crypto.randomUUID();
     this.name = props.name;
     this.email = props.email;
     this.password = props.password;
-    this.createdAt = new Date();
-  }
+    this.createdAt = props.createdAt || new Date();
+  };
 
   static create(
-    props: Omit<UserProps, "createdAt" | "id">
+    props: UserProps
   ): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> {
     const validate = User.validate(props);
 
