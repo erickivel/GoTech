@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { CreateUserController } from '../../../controllers/users/CreateUserController';
-import { SignInUserController } from '../../../controllers/users/SignInUserController';
+import { UpdateUserController } from '../../../controllers/users/UpdateUserController';
 import { UserProfileController } from '../../../controllers/users/UserProfileController';
 import { adaptedEnsureAuthenticated } from '../middlewares/adaptedEnsureAuthenticated';
 import { routeAdapter } from './RouteAdapter';
@@ -9,11 +9,11 @@ import { routeAdapter } from './RouteAdapter';
 export const usersRoutes = Router();
 
 const createUserController = new CreateUserController();
-const signInUserController = new SignInUserController();
 const userProfileController = new UserProfileController();
+const updateUserController = new UpdateUserController();
 
 
 
-usersRoutes.post("/signup", routeAdapter(createUserController));
-usersRoutes.post("/signin", routeAdapter(signInUserController));
+usersRoutes.post("/", routeAdapter(createUserController));
 usersRoutes.get("/profile", adaptedEnsureAuthenticated, routeAdapter(userProfileController));
+usersRoutes.put("/update", adaptedEnsureAuthenticated, routeAdapter(updateUserController));
