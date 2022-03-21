@@ -28,7 +28,7 @@ describe("User Profile Route", () => {
 
   it("should return status code 200 and body with user data if user is authenticated", async () => {
     const signInResponse = await request(app)
-      .post("/users/signin")
+      .post("/sessions")
       .send({
         email: "user@example.com",
         password: "password"

@@ -28,7 +28,7 @@ describe("SignIn User Route", () => {
 
   it("should return status code 200 when user is authenticated", async () => {
     const response = await request(app)
-      .post("/users/signin")
+      .post("/sessions")
       .send({
         email: "user@example.com",
         password: "password"
