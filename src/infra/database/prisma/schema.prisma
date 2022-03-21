@@ -13,6 +13,7 @@ model Users {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   @@map("users")
 }
