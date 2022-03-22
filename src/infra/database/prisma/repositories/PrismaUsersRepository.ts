@@ -1,10 +1,11 @@
-import { IUpdatedUserData } from '../../../../useCases/ports/IUpdatedUserData';
-import { IUserData } from '../../../../useCases/ports/IUserData';
-import { IUsersRepository } from '../../../../useCases/ports/IUsersRepository';
+import { IListUsersResponse } from '../../../../useCases/users/ports/IListUsersResponse';
+import { IUpdatedUserData } from '../../../../useCases/users/ports/IUpdatedUserData';
+import { IUserData } from '../../../../useCases/users/ports/IUserData';
+import { IUsersRepository } from '../../../../useCases/users/ports/IUsersRepository';
 import { prismaClient } from '../PrismaClient';
 
 export class PrismaUsersRepository implements IUsersRepository {
-  async create(data: IUserData): Promise<Omit<IUserData, "password">> {
+  async create(data: IUserData): Promise<Omit<IUserData, "password" | "isAdmin">> {
     const userCreated = await prismaClient.users.create({
       data: {
         id: data.id,
@@ -64,5 +65,19 @@ export class PrismaUsersRepository implements IUsersRepository {
     });
 
     return userUpdated;
+  };
+
+  async listAll(): Promise<IListUsersResponse> {
+    const users = await prismaClient.users.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      }
+    });
+
+    return users;
   }
 }
