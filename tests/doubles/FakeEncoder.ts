@@ -1,4 +1,4 @@
-import { IEncoder } from "../../src/useCases/ports/IEncoder";
+import { IEncoder } from "../../src/useCases/users/ports/IEncoder";
 
 export class FakeEncoder implements IEncoder {
   async encode(plain: string): Promise<string> {

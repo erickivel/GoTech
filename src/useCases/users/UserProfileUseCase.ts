@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
 import { Either, left, right } from "../../core/logic/Either";
-import { IUsersRepository } from "../ports/IUsersRepository";
 import { UserNotFoundError } from "./errors/UserNotFoundError";
+import { IUsersRepository } from "./ports/IUsersRepository";
 
 interface IRequest {
   user_id: string;

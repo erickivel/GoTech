@@ -1,8 +1,8 @@
 import { container } from "tsyringe";
 
 import { CreateUserController } from "../../../src/controllers/users/CreateUserController";
-import { IEncoder } from "../../../src/useCases/ports/IEncoder";
-import { IUsersRepository } from "../../../src/useCases/ports/IUsersRepository";
+import { IEncoder } from "../../../src/useCases/users/ports/IEncoder";
+import { IUsersRepository } from "../../../src/useCases/users/ports/IUsersRepository";
 import { FakeEncoder } from "../../doubles/FakeEncoder";
 import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
 

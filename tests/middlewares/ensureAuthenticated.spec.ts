@@ -2,7 +2,7 @@ import { container } from "tsyringe";
 
 import { JwtAuthenticationTokenProvider } from "../../src/infra/authentication/JwtAuthenticationTokenProvider";
 import { EnsureAuthenticated } from "../../src/middlewares/ensureAuthenticated";
-import { IAuthenticationTokenProvider } from "../../src/useCases/ports/IAuthenticationTokenProvider";
+import { IAuthenticationTokenProvider } from "../../src/useCases/users/ports/IAuthenticationTokenProvider";
 
 describe("Ensure Authenticated Middleware", () => {
   beforeEach(() => {

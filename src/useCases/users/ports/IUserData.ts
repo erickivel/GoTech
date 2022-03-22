@@ -5,4 +5,5 @@ export interface IUserData {
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  isAdmin: boolean;
 }

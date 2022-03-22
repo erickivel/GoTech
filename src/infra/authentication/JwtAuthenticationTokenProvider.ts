@@ -1,6 +1,6 @@
 import { sign, verify } from 'jsonwebtoken';
 
-import { IAuthenticationTokenProvider } from "../../useCases/ports/IAuthenticationTokenProvider";
+import { IAuthenticationTokenProvider } from "../../useCases/users/ports/IAuthenticationTokenProvider";
 import authConfig from './config';
 
 const { secretKey, expiresIn } = authConfig;

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { IAuthenticationTokenProvider } from "../useCases/ports/IAuthenticationTokenProvider";
+import { IAuthenticationTokenProvider } from "../useCases/users/ports/IAuthenticationTokenProvider";
 import { IHttpRequest } from "./ports/IHttpRequest";
 import { IHttpResponse } from "./ports/IHttpResponse";
 import { IMiddleware } from "./ports/IMiddleware";

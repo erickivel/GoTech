@@ -1,10 +1,10 @@
 import { inject, injectable } from "tsyringe";
 
 import { Either, left, right } from "../../core/logic/Either";
-import { IAuthenticationTokenProvider } from "../ports/IAuthenticationTokenProvider";
-import { IEncoder } from "../ports/IEncoder";
-import { IUsersRepository } from "../ports/IUsersRepository";
 import { IncorrectCredentialsError } from "./errors/IncorrectCredentialsError";
+import { IAuthenticationTokenProvider } from "./ports/IAuthenticationTokenProvider";
+import { IEncoder } from "./ports/IEncoder";
+import { IUsersRepository } from "./ports/IUsersRepository";
 
 interface IRequest {
   email: string;

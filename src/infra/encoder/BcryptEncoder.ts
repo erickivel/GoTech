@@ -1,6 +1,6 @@
 import { compare, hash } from 'bcrypt';
 
-import { IEncoder } from "../../useCases/ports/IEncoder";
+import { IEncoder } from "../../useCases/users/ports/IEncoder";
 
 export class BcryptEncoder implements IEncoder {
   async encode(plain: string): Promise<string> {

@@ -5,13 +5,13 @@ import { InvalidEmailError } from "../../domain/entities/errors/InvalidEmailErro
 import { InvalidNameError } from "../../domain/entities/errors/InvalidNameError";
 import { InvalidPasswordError } from "../../domain/entities/errors/InvalidPasswordError";
 import { User } from "../../domain/entities/User";
-import { IEncoder } from "../ports/IEncoder";
-import { IUpdatedUserData } from "../ports/IUpdatedUserData";
-import { IUsersRepository } from "../ports/IUsersRepository";
 import { EmailIsAlreadyTakenError } from "./errors/EmailIsAlreadyTakenError";
 import { IncorrectPasswordError } from "./errors/IncorrectPasswordError";
 import { UnmatchedPasswordError } from "./errors/UnmatchedPasswordError";
 import { UserNotFoundError } from "./errors/UserNotFoundError";
+import { IEncoder } from "./ports/IEncoder";
+import { IUpdatedUserData } from "./ports/IUpdatedUserData";
+import { IUsersRepository } from "./ports/IUsersRepository";
 
 export interface IRequest {
   user_id: string;
