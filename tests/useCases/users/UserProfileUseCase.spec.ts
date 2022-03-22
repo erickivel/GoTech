@@ -25,6 +25,7 @@ describe("User Profile UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const userOrError = await userProfileUseCase.execute({ user_id: "fake-id" });
@@ -50,6 +51,7 @@ describe("User Profile UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const invalidId = "invalid-id";

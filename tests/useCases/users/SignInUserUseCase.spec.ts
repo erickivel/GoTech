@@ -29,6 +29,7 @@ describe("SignIn User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await signInUserUseCase.execute({
@@ -51,6 +52,7 @@ describe("SignIn User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await signInUserUseCase.execute({
@@ -72,6 +74,7 @@ describe("SignIn User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await signInUserUseCase.execute({
@@ -93,6 +96,7 @@ describe("SignIn User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await signInUserUseCase.execute({

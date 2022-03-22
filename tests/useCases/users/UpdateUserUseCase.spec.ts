@@ -32,6 +32,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await updateUserUseCase.execute({
@@ -60,6 +61,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await updateUserUseCase.execute({
@@ -101,6 +103,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const invalidId = "invalid-id"
@@ -128,6 +131,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await updateUserUseCase.execute({
@@ -153,6 +157,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await updateUserUseCase.execute({
@@ -178,6 +183,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     await usersRepositoryInMemory.create({
@@ -187,6 +193,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const resultOrError = await updateUserUseCase.execute({
@@ -209,6 +216,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const invalidEmail = "invalidEmail.com";
@@ -233,6 +241,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const invalidName = "a";
@@ -257,6 +266,7 @@ describe("Update User UseCase", () => {
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
+      isAdmin: false,
     });
 
     const invalidPassword = "short";
