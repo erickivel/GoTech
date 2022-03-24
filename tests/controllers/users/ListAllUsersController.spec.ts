@@ -1,10 +1,7 @@
 import { container } from "tsyringe";
 
 import { ListAllUsersController } from "../../../src/controllers/users/ListAllUsersController";
-import { JwtAuthenticationTokenProvider } from "../../../src/infra/authentication/JwtAuthenticationTokenProvider";
 import { BcryptEncoder } from "../../../src/infra/encoder/BcryptEncoder";
-import { IAuthenticationTokenProvider } from "../../../src/useCases/users/ports/IAuthenticationTokenProvider";
-import { IEncoder } from "../../../src/useCases/users/ports/IEncoder";
 import { IUsersRepository } from "../../../src/useCases/users/ports/IUsersRepository";
 import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
 import { UsersActions } from "../../doubles/UsersActions";
@@ -15,8 +12,6 @@ describe("List All Users Controller", () => {
   beforeEach(() => {
 
     container.registerSingleton<IUsersRepository>("UsersRepository", UsersRepositoryInMemory);
-    container.registerSingleton<IEncoder>("Encoder", BcryptEncoder);
-    container.registerSingleton<IAuthenticationTokenProvider>("AuthenticationTokenProvider", JwtAuthenticationTokenProvider);
     listAllUsersController = new ListAllUsersController();
   });
 
