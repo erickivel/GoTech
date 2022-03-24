@@ -8,4 +8,5 @@ export interface IUsersRepository {
   findById(id: string): Promise<IUserData | null>;
   update(data: IUserData): Promise<IUpdatedUserData>;
   listAll(): Promise<IListUsersResponse>;
+  deleteOne(id: string): Promise<void>
 };
