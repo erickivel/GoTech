@@ -3,4 +3,5 @@ export interface IHttpRequest {
     id?: string;
   };
   body?: any;
+  params?: any;
 };
