@@ -60,4 +60,10 @@ export class UsersRepositoryInMemory implements IUsersRepository {
 
     return usersFormatted;
   }
+
+  async deleteOne(id: string): Promise<void> {
+    const userIndex = this.users.findIndex(user => user.id === id);
+
+    this.users.splice(userIndex, 1);
+  }
 };

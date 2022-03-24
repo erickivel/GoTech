@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { IListUsersResponse } from "../../src/useCases/users/ports/IListUsersResponse";
 import { IUserData } from "../../src/useCases/users/ports/IUserData";
 import { IUsersRepository } from "../../src/useCases/users/ports/IUsersRepository";
 
@@ -15,4 +16,10 @@ export class UsersActions {
 
     return user;
   };
+
+  async listAll(): Promise<IListUsersResponse> {
+    const users = await this.usersRepository.listAll();
+
+    return users;
+  }
 };
