@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { CreateUserController } from '../../../controllers/users/CreateUserController';
+import { DeleteUserController } from '../../../controllers/users/DeleteUserController';
 import { ListAllUsersController } from '../../../controllers/users/ListAllUsersController';
 import { UpdateUserController } from '../../../controllers/users/UpdateUserController';
 import { UserProfileController } from '../../../controllers/users/UserProfileController';
@@ -14,11 +15,10 @@ const createUserController = new CreateUserController();
 const updateUserController = new UpdateUserController();
 const userProfileController = new UserProfileController();
 const listAllUsersController = new ListAllUsersController();
-
-
-
+const deleteUserController = new DeleteUserController();
 
 usersRoutes.post("/", routeAdapter(createUserController));
 usersRoutes.put("/update", adaptedEnsureAuthenticated, routeAdapter(updateUserController));
 usersRoutes.get("/", adaptedEnsureAdmin, routeAdapter(listAllUsersController));
 usersRoutes.get("/profile", adaptedEnsureAuthenticated, routeAdapter(userProfileController));
+usersRoutes.delete("/:user_id", adaptedEnsureAdmin, routeAdapter(deleteUserController));
