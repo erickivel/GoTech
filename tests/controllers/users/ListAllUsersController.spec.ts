@@ -63,34 +63,6 @@ describe("List All Users Controller", () => {
     expect(result.body).toEqual(expectedResponse);
   });
 
-  it("should return status code 403 when trying to list users with invalid id", async () => {
-    const usersActions = container.resolve(UsersActions);
-
-    const bcryptEncoder = new BcryptEncoder();
-    const hashedPassword = await bcryptEncoder.encode("password");
-
-    await usersActions.create({
-      id: "fake-id",
-      name: "Admin",
-      email: "admin@example.com",
-      password: hashedPassword,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isAdmin: true,
-    });
-
-    const fakeRequest = {
-      user: {
-        id: "invalid-id",
-      }
-    }
-
-    const result = await listAllUsersController.handle(fakeRequest);
-
-    expect(result.statusCode).toBe(403);
-    expect(result.body).toEqual(`User with id "invalid-id" not found`);
-  });
-
   it("should return status code 403 when the id is missing", async () => {
     const usersActions = container.resolve(UsersActions);
 
@@ -112,7 +84,7 @@ describe("List All Users Controller", () => {
 
     const result = await listAllUsersController.handle(fakeRequest);
 
-    expect(result.statusCode).toBe(400);
-    expect(result.body).toEqual(`Missing parameter(s): user id.`);
+    expect(result.statusCode).toBe(401);
+    expect(result.body).toEqual(`User is not authenticated!`);
   });
 });
