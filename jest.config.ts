@@ -29,7 +29,7 @@ export default {
     "<rootDir>/src/middlewares/**/*.ts",
     "<rootDir>/!src/middlewares/ports/*.ts",
     "<rootDir>/src/useCases/**/*.ts",
-    "<rootDir>/!src/useCases/ports/*.ts",
+    "<rootDir>/!src/useCases/**/ports/*.ts",
   ],
 
   // The directory where Jest should output its coverage files
