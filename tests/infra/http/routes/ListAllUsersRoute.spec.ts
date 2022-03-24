@@ -15,8 +15,6 @@ describe("List All Users Profile Route", () => {
 
     dateNow = new Date();
 
-    console.log(dateNow);
-
     await prismaClient.$connect();
     await prismaClient.users.create({
       data: {
