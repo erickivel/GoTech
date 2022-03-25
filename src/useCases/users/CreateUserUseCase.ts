@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
-import { InvalidEmailError } from "../../domain/entities/errors/InvalidEmailError";
-import { InvalidNameError } from "../../domain/entities/errors/InvalidNameError";
-import { InvalidPasswordError } from "../../domain/entities/errors/InvalidPasswordError";
 import { User } from "../../domain/entities/User";
+import { InvalidEmailError } from "../../domain/entities/User/errors/InvalidEmailError";
+import { InvalidNameError } from "../../domain/entities/User/errors/InvalidNameError";
+import { InvalidPasswordError } from "../../domain/entities/User/errors/InvalidPasswordError";
 import { Either, left, right } from "../../logic/Either";
 import { UserAlreadyExistsError } from "./errors/UserAlreadyExistsError";
 import { IEncoder } from "./ports/IEncoder";

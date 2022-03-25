@@ -1,9 +1,9 @@
 import crypto from 'crypto';
 
 import { Either, left, right } from "../../../logic/Either";
-import { InvalidEmailError } from "../errors/InvalidEmailError";
-import { InvalidNameError } from "../errors/InvalidNameError";
-import { InvalidPasswordError } from "../errors/InvalidPasswordError";
+import { InvalidEmailError } from "./errors/InvalidEmailError";
+import { InvalidNameError } from "./errors/InvalidNameError";
+import { InvalidPasswordError } from "./errors/InvalidPasswordError";
 import { valid } from "./ValidateEmail";
 
 type UserProps = {

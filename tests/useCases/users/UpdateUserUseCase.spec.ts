@@ -1,6 +1,6 @@
-import { InvalidEmailError } from "../../../src/domain/entities/errors/InvalidEmailError";
-import { InvalidNameError } from "../../../src/domain/entities/errors/InvalidNameError";
-import { InvalidPasswordError } from "../../../src/domain/entities/errors/InvalidPasswordError";
+import { InvalidEmailError } from "../../../src/domain/entities/User/errors/InvalidEmailError";
+import { InvalidNameError } from "../../../src/domain/entities/User/errors/InvalidNameError";
+import { InvalidPasswordError } from "../../../src/domain/entities/User/errors/InvalidPasswordError";
 import { BcryptEncoder } from "../../../src/infra/encoder/BcryptEncoder";
 import { EmailIsAlreadyTakenError } from "../../../src/useCases/users/errors/EmailIsAlreadyTakenError";
 import { IncorrectPasswordError } from "../../../src/useCases/users/errors/IncorrectPasswordError";

@@ -1,7 +1,7 @@
-import { InvalidEmailError } from "../../src/domain/entities/errors/InvalidEmailError";
-import { InvalidNameError } from "../../src/domain/entities/errors/InvalidNameError";
-import { InvalidPasswordError } from "../../src/domain/entities/errors/InvalidPasswordError";
 import { User } from "../../src/domain/entities/User";
+import { InvalidEmailError } from "../../src/domain/entities/User/errors/InvalidEmailError";
+import { InvalidNameError } from "../../src/domain/entities/User/errors/InvalidNameError";
+import { InvalidPasswordError } from "../../src/domain/entities/User/errors/InvalidPasswordError";
 
 describe("User Validator", () => {
   it("should create a user", () => {
