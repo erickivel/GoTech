@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-import { Either, left, right } from "../../../core/logic/Either";
+import { Either, left, right } from "../../../logic/Either";
 import { InvalidEmailError } from "../errors/InvalidEmailError";
 import { InvalidNameError } from "../errors/InvalidNameError";
 import { InvalidPasswordError } from "../errors/InvalidPasswordError";

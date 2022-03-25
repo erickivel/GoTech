@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 
-import { Either, left, right } from "../../core/logic/Either";
 import { InvalidEmailError } from "../../domain/entities/errors/InvalidEmailError";
 import { InvalidNameError } from "../../domain/entities/errors/InvalidNameError";
 import { InvalidPasswordError } from "../../domain/entities/errors/InvalidPasswordError";
 import { User } from "../../domain/entities/User";
+import { Either, left, right } from "../../logic/Either";
 import { UserAlreadyExistsError } from "./errors/UserAlreadyExistsError";
 import { IEncoder } from "./ports/IEncoder";
 import { IUsersRepository } from "./ports/IUsersRepository";

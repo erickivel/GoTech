@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { Either, left, right } from "../../core/logic/Either";
+import { Either, left, right } from "../../logic/Either";
 import { UserNotFoundError } from "./errors/UserNotFoundError";
 import { IUsersRepository } from "./ports/IUsersRepository";
 
