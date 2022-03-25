@@ -18,3 +18,12 @@ model Users {
 
   @@map("users")
 }
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("categories")
+}
