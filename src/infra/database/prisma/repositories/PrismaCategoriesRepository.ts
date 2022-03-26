@@ -24,4 +24,10 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
 
     return categoryOrNull;
   };
+
+  async listAll(): Promise<ICategoryData[]> {
+    const categories = await prismaClient.categories.findMany();
+
+    return categories;
+  };
 };
