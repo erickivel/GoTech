@@ -1,7 +1,9 @@
 import request from 'supertest';
 
-import { prismaClient } from '../../../../src/infra/database/prisma/PrismaClient';
-import { app } from '../../../../src/infra/http/app';
+import { prismaClient } from '../../../../../src/infra/database/prisma/PrismaClient';
+import { app } from '../../../../../src/infra/http/app';
+
+
 
 describe("Create User Route", () => {
   beforeAll(async () => {

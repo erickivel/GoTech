@@ -1,30 +1,22 @@
 import request from 'supertest';
 
-import { prismaClient } from '../../../../src/infra/database/prisma/PrismaClient';
-import { BcryptEncoder } from "../../../../src/infra/encoder/BcryptEncoder";
-import { app } from '../../../../src/infra/http/app';
+import { prismaClient } from '../../../../../src/infra/database/prisma/PrismaClient';
+import { BcryptEncoder } from "../../../../../src/infra/encoder/BcryptEncoder";
+import { app } from '../../../../../src/infra/http/app';
 
-describe("List All Users Profile Route", () => {
-  let hashedPassword: string;
-  let dateNow: Date;
-
+describe("User Profile Route", () => {
   beforeAll(async () => {
     const bcryptEncoder = new BcryptEncoder();
 
-    hashedPassword = await bcryptEncoder.encode("password");
-
-    dateNow = new Date();
+    const hashedPassword = await bcryptEncoder.encode("password");
 
     await prismaClient.$connect();
     await prismaClient.users.create({
       data: {
         id: "fake id",
-        email: "admin@example.com",
-        name: "Admin",
+        email: "user@example.com",
+        name: "User",
         password: hashedPassword,
-        isAdmin: true,
-        createdAt: dateNow,
-        updatedAt: dateNow,
       }
     });
   });
@@ -34,39 +26,36 @@ describe("List All Users Profile Route", () => {
     await prismaClient.$disconnect()
   });
 
-  it("should return status code 200 and body with all users if user is authenticated and is an admin", async () => {
+  it("should return status code 200 and body with user data if user is authenticated", async () => {
     const signInResponse = await request(app)
       .post("/sessions")
       .send({
-        email: "admin@example.com",
+        email: "user@example.com",
         password: "password"
       });
 
     const { token } = signInResponse.body;
 
     const response = await request(app)
-      .get("/users")
+      .get("/users/profile")
       .set({
         Authorization: `Bearer ${token}`
       })
       .expect(200);
 
-    const expectedResponse = [
-      {
-        id: "fake id",
-        email: "admin@example.com",
-        name: "Admin",
-        createdAt: dateNow.toISOString(),
-        updatedAt: dateNow.toISOString(),
-      }
-    ]
+    const expectedResponse = {
+      id: "fake id",
+      name: "User",
+      email: "user@example.com"
+    }
 
     expect(response.body).toEqual(expectedResponse);
   });
 
+
   it("should return status code 401 and body with unauthorized message if token is invalid", async () => {
     const response = await request(app)
-      .get("/users")
+      .get("/users/profile")
       .set({
         Authorization: `Bearer invalid-token`
       })
@@ -77,7 +66,7 @@ describe("List All Users Profile Route", () => {
 
   it("should return status code 401 and body with unauthorized message if token is missing", async () => {
     const response = await request(app)
-      .get("/users")
+      .get("/users/profile")
       .expect(401);
 
     expect(response.body).toEqual("Token is missing!");

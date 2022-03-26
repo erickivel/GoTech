@@ -1,8 +1,8 @@
 import request from 'supertest';
 
-import { prismaClient } from '../../../../src/infra/database/prisma/PrismaClient';
-import { BcryptEncoder } from "../../../../src/infra/encoder/BcryptEncoder";
-import { app } from '../../../../src/infra/http/app';
+import { prismaClient } from '../../../../../src/infra/database/prisma/PrismaClient';
+import { BcryptEncoder } from "../../../../../src/infra/encoder/BcryptEncoder";
+import { app } from '../../../../../src/infra/http/app';
 
 describe("Update User Route", () => {
   beforeAll(async () => {
