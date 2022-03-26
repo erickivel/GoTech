@@ -14,5 +14,9 @@ export class CategoriesRepositoryInMemory implements ICategoriesRepository {
     const category = this.categories.find(category => category.name === name);
 
     return category || null;
+  };
+
+  async listAll(): Promise<ICategoryData[]> {
+    return this.categories;
   }
 }
