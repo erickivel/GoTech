@@ -30,4 +30,28 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
 
     return categories;
   };
+
+  async findById(id: string): Promise<ICategoryData | null> {
+    const categoryOrNull = await prismaClient.categories.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    return categoryOrNull;
+  };
+
+  async update(data: ICategoryData): Promise<ICategoryData> {
+    const categoryUpdated = await prismaClient.categories.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name: data.name,
+        updatedAt: data.updatedAt,
+      },
+    });
+
+    return categoryUpdated;
+  }
 };
