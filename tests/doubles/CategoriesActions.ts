@@ -1,11 +1,12 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { ICategoriesRepository } from "../../src/useCases/categories/ports/ICategoriesRepository";
 import { ICategoryData } from "../../src/useCases/categories/ports/ICategoryData";
 
+@injectable()
 export class CategoriesActions {
   constructor(
-    @inject("categoriesRepository")
+    @inject("CategoriesRepository")
     private categoriesRepository: ICategoriesRepository,
   ) { }
 
