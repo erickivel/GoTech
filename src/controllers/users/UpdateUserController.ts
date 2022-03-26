@@ -30,9 +30,6 @@ export class UpdateUserController implements IController {
 
       let response;
 
-
-
-
       if (old_password && new_password && confirm_password) {
         response = await updateUserUseCase.execute({
           user_id: id,
