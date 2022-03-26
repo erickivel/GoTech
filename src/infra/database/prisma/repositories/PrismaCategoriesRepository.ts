@@ -4,7 +4,7 @@ import { prismaClient } from "../PrismaClient";
 
 export class PrismaCategoriesRepository implements ICategoriesRepository {
   async create(data: ICategoryData): Promise<ICategoryData> {
-    const categoryCreated = await prismaClient.category.create({
+    const categoryCreated = await prismaClient.categories.create({
       data: {
         id: data.id,
         name: data.name,
@@ -16,7 +16,7 @@ export class PrismaCategoriesRepository implements ICategoriesRepository {
     return categoryCreated;
   }
   async findByName(name: string): Promise<ICategoryData | null> {
-    const categoryOrNull = await prismaClient.category.findFirst({
+    const categoryOrNull = await prismaClient.categories.findFirst({
       where: {
         name,
       }

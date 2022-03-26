@@ -19,7 +19,7 @@ model Users {
   @@map("users")
 }
 
-model Category {
+model Categories {
   id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())
