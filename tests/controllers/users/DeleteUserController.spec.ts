@@ -18,7 +18,7 @@ describe("Delete User Controller", () => {
   });
 
 
-  it("should return status code 201 and user updated on body if user is successfully updated", async () => {
+  it("should return status code 200 if user is successfully deleted", async () => {
     const usersActions = container.resolve(UsersActions);
 
     const dateNow = new Date();
