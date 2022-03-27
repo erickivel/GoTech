@@ -33,4 +33,10 @@ export class CategoriesRepositoryInMemory implements ICategoriesRepository {
 
     return this.categories[categoryIndex];
   };
+
+  async deleteOne(id: string): Promise<void> {
+    const categoryIndex = this.categories.findIndex(category => category.id === id);
+
+    this.categories.splice(categoryIndex, 1);
+  }
 }
