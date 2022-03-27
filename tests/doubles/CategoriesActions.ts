@@ -20,5 +20,11 @@ export class CategoriesActions {
     const category = await this.categoriesRepository.findByName(name);
 
     return category;
+  };
+
+  async listAll(): Promise<ICategoryData[]> {
+    const categories = await this.categoriesRepository.listAll();
+
+    return categories;
   }
 };
