@@ -6,4 +6,5 @@ export interface ICategoriesRepository {
   findById(id: string): Promise<ICategoryData | null>;
   listAll(): Promise<ICategoryData[]>;
   update(data: ICategoryData): Promise<ICategoryData>;
+  deleteOne(id: string): Promise<void>;
 };
