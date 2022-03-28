@@ -26,7 +26,7 @@ describe("Category Validator", () => {
     expect(createdCategoryWithAllParamsOrError.value).toEqual(categoryWithAllParams);
   });
 
-  it("should not create a category with invalid category", () => {
+  it("should not create a category with invalid category name", () => {
     const shortName = "a"
 
     const shortNameCategory = {
