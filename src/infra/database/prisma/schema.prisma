@@ -25,5 +25,21 @@ model Categories {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
+  products Products[]
+
   @@map("categories")
+}
+
+model Products {
+  id        String   @id @default(uuid())
+  name      String
+  stock     Int
+  price     Decimal  @db.Decimal(8, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  category   Categories? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
+  @@map("products")
 }
