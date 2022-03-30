@@ -5,6 +5,8 @@ import { InvalidProductNameError } from '../../domain/entities/Product/errors/In
 import { InvalidProductPriceError } from '../../domain/entities/Product/errors/InvalidProductPriceError';
 import { InvalidProductStockError } from '../../domain/entities/Product/errors/InvalidProductStockError';
 import { Either, left, right } from "../../logic/Either";
+import { CategoryNotFoundError } from '../categories/errors/CategoryNotFoundError';
+import { ICategoriesRepository } from '../categories/ports/ICategoriesRepository';
 import { ProductAlreadyExistsError } from './errors/ProductAlreadyExistsError';
 import { IProductData } from './ports/IProductData';
 import { IProductsRepository } from './ports/IProductsRepository';
@@ -21,7 +23,9 @@ interface IRequest {
 export class CreateProductUseCase {
   constructor(
     @inject("ProductsRepository")
-    private productsRepository: IProductsRepository
+    private productsRepository: IProductsRepository,
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoriesRepository
   ) { }
 
   async execute({
@@ -31,7 +35,8 @@ export class CreateProductUseCase {
       | ProductAlreadyExistsError
       | InvalidProductNameError
       | InvalidProductStockError
-      | InvalidProductPriceError,
+      | InvalidProductPriceError
+      | CategoryNotFoundError,
       IProductData
     >
   > {
@@ -39,6 +44,12 @@ export class CreateProductUseCase {
 
     if (productExists) {
       return left(new ProductAlreadyExistsError(name));
+    };
+
+    const categoryExists = await this.categoriesRepository.findById(categoryId);
+
+    if (!categoryExists) {
+      return left(new CategoryNotFoundError(categoryId));
     }
 
     const productOrError = Product.create({
