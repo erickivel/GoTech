@@ -7,6 +7,7 @@
 <p align="center" >
   <img src="./assets/database-overview.png" alt="project-overview"  style="align: center" width="70%"/>
 </p>
+
 # Getting Started
 
 ## :rocket: Getting started with Docker
