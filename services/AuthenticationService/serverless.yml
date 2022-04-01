@@ -1,0 +1,30 @@
+service: authentication-service-serverless
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: sa-east-1
+
+functions:
+  ensureAuthenticated:
+    handler: src/infra/serverless/functions/ensureAuthenticated.handle
+  ensureAdmin:
+    handler: src/infra/serverless/functions/ensureAdmin.handle
+  hello:
+    handler: src/infra/serverless/functions/hello.handle
+    events:
+      - http:
+          path: /
+          method: GET
+
+custom:
+  dotenv:
+    path: ".env.development"
+    include:
+      - TOKEN_SECRET_KEY

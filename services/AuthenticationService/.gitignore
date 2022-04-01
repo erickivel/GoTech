@@ -1,0 +1,6 @@
+node_modules
+jspm_packages
+coverage
+.serverless
+.env.development
+.env.test
