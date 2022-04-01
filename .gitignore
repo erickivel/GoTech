@@ -3,4 +3,3 @@ coverage
 .env.development
 .env.test
 .vscode
-serverless
