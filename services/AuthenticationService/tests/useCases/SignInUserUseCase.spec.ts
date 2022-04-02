@@ -1,8 +1,8 @@
-import { JwtAuthenticationTokenProvider } from "../../../src/infra/authentication/JwtAuthenticationTokenProvider";
-import { BcryptEncoder } from "../../../src/infra/encoder/BcryptEncoder";
-import { IncorrectCredentialsError } from "../../../src/useCases/users/errors/IncorrectCredentialsError";
-import { SignInUserUseCase } from "../../../src/useCases/users/SignInUserUseCase";
-import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
+import { JwtAuthenticationTokenProvider } from "../../src/infra/authentication/JwtAuthenticationTokenProvider";
+import { BcryptEncoder } from "../../src/infra/encoder/BcryptEncoder";
+import { IncorrectCredentialsError } from "../../src/useCases/authentication/errors/IncorrectCredentialsError";
+import { SignInUserUseCase } from "../../src/useCases/authentication/SignInUserUseCase";
+import { UsersRepositoryInMemory } from "../doubles/repositories/UsersRepositoryInMemory";
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let bcryptEncoder: BcryptEncoder;

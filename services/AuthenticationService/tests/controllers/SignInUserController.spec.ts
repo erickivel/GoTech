@@ -1,13 +1,13 @@
 import { container } from "tsyringe";
 
-import { SignInUserController } from "../../../src/controllers/users/SignInUserController";
-import { JwtAuthenticationTokenProvider } from "../../../src/infra/authentication/JwtAuthenticationTokenProvider";
-import { BcryptEncoder } from "../../../src/infra/encoder/BcryptEncoder";
-import { CreateUserUseCase } from "../../../src/useCases/users/CreateUserUseCase";
-import { IAuthenticationTokenProvider } from "../../../src/useCases/users/ports/IAuthenticationTokenProvider";
-import { IEncoder } from "../../../src/useCases/users/ports/IEncoder";
-import { IUsersRepository } from "../../../src/useCases/users/ports/IUsersRepository";
-import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
+import { SignInUserController } from "../../src/controllers/authentication/SignInUserController";
+import { JwtAuthenticationTokenProvider } from "../../src/infra/authentication/JwtAuthenticationTokenProvider";
+import { BcryptEncoder } from "../../src/infra/encoder/BcryptEncoder";
+import { IAuthenticationTokenProvider } from "../../src/useCases/authentication/ports/IAuthenticationTokenProvider";
+import { IEncoder } from "../../src/useCases/authentication/ports/IEncoder";
+import { IUsersRepository } from "../../src/useCases/authentication/ports/IUsersRepository";
+import { UsersRepositoryInMemory } from "../doubles/repositories/UsersRepositoryInMemory";
+import { UsersActions } from "../doubles/UsersActions";
 
 describe("SignIn User Controller", () => {
   let signInUserController: SignInUserController;
@@ -25,12 +25,19 @@ describe("SignIn User Controller", () => {
 
 
   it("should return status code 200, user and token on body if user is successfully authenticated", async () => {
-    const createUserUseCase = container.resolve(CreateUserUseCase);
+    const usersActions = container.resolve(UsersActions);
+    const bcryptEncoder = new BcryptEncoder()
 
-    await createUserUseCase.execute({
+    const hashedPassword = await bcryptEncoder.encode("password")
+
+    await usersActions.create({
+      id: "fake-id",
       name: "John",
       email: "john@example.com",
-      password: "password",
+      password: hashedPassword,
+      isAdmin: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const fakeRequest = {
@@ -48,12 +55,16 @@ describe("SignIn User Controller", () => {
   });
 
   it("should return status code 403 when trying sign in with incorrect email", async () => {
-    const createUserUseCase = container.resolve(CreateUserUseCase);
+    const usersActions = container.resolve(UsersActions);
 
-    await createUserUseCase.execute({
+    await usersActions.create({
+      id: "fake-id",
       name: "John",
       email: "john@example.com",
       password: "password",
+      isAdmin: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const fakeRequest = {
@@ -70,12 +81,16 @@ describe("SignIn User Controller", () => {
   });
 
   it("should return status code 403 when trying sign in with incorrect password", async () => {
-    const createUserUseCase = container.resolve(CreateUserUseCase);
+    const usersActions = container.resolve(UsersActions);
 
-    await createUserUseCase.execute({
+    await usersActions.create({
+      id: "fake-id",
       name: "John",
       email: "john@example.com",
       password: "password",
+      isAdmin: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     const fakeRequest = {
