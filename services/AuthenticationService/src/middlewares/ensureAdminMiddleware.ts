@@ -1,11 +1,10 @@
 import { inject, injectable } from "tsyringe";
+import { Either, left, right } from "../logic/Either";
 
 import { IAuthenticationTokenProvider } from "../useCases/authentication/ports/IAuthenticationTokenProvider";
 import { IUsersRepository } from "../useCases/authentication/ports/IUsersRepository";
 import { IHttpRequest } from "./ports/IHttpRequest";
-import { IHttpResponse } from "./ports/IHttpResponse";
 import { IMiddleware } from "./ports/IMiddleware";
-import { unauthorized, ok, serverError } from "./utils/HttpResponses";
 
 @injectable()
 export class EnsureAdmin implements IMiddleware {
@@ -16,42 +15,40 @@ export class EnsureAdmin implements IMiddleware {
     private usersRepository: IUsersRepository,
   ) { }
 
-  async handle(request: IHttpRequest): Promise<IHttpResponse> {
-
+  async handle(request: IHttpRequest): Promise<Either<false, string>> {
     try {
       if (!request.headers.authorization) {
-        return unauthorized("Token is missing!")
+        return left(false);
       }
 
       const authHeader = request.headers.authorization;
 
       const [, token] = authHeader.split(" ");
 
-
       const user_id = this.authenticationTokenProvider.verify(
         token,
       );
 
       if (!user_id) {
-        return unauthorized("Token is invalid!");
+        return left(false);
       }
 
       const user = await this.usersRepository.findById(user_id);
 
       if (!user) {
-        return unauthorized("User not found!");
+        return left(false);
       }
 
       if (!user.isAdmin) {
-        return unauthorized("User is not an admin!");
+        return left(false);
       }
 
       request.user = {
         id: user_id,
       }
-      return ok("User is authenticated!");
+      return right(user_id);
     } catch (error) {
-      return serverError(error);
+      return left(false);
     };
   };
 };

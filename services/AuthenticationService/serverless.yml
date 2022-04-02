@@ -12,10 +12,16 @@ provider:
   region: sa-east-1
 
 functions:
-  ensureAuthenticated:
-    handler: src/infra/serverless/functions/ensureAuthenticated.handle
-  ensureAdmin:
-    handler: src/infra/serverless/functions/ensureAdmin.handle
+  EnsureAuthenticated:
+    handler: src/infra/serverless/functions/EnsureAuthenticated.handle
+  EnsureAdmin:
+    handler: src/infra/serverless/functions/EnsureAdmin.handle
+  SignInUser:
+    handler: src/infra/serverless/functions/SignInUser.handle
+    events:
+      - http:
+          path: /sessions
+          method: POST
   hello:
     handler: src/infra/serverless/functions/hello.handle
     events:
