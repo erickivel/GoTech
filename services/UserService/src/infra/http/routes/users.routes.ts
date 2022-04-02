@@ -6,8 +6,6 @@ import { DeleteUserController } from '../../../controllers/users/DeleteUserContr
 import { ListAllUsersController } from '../../../controllers/users/ListAllUsersController';
 import { UpdateUserController } from '../../../controllers/users/UpdateUserController';
 import { UserProfileController } from '../../../controllers/users/UserProfileController';
-import { adaptedEnsureAdmin } from '../middlewares/adaptedEnsureAdmin';
-import { adaptedEnsureAuthenticated } from '../middlewares/adaptedEnsureAuthenticated';
 import { routeAdapter } from './RouteAdapter';
 
 export const usersRoutes = Router();
@@ -20,8 +18,8 @@ const deleteUserController = new DeleteUserController();
 const adminUpdateUserController = new AdminUpdateUserController()
 
 usersRoutes.post("/", routeAdapter(createUserController));
-usersRoutes.put("/update", adaptedEnsureAuthenticated, routeAdapter(updateUserController));
-usersRoutes.get("/", adaptedEnsureAdmin, routeAdapter(listAllUsersController));
-usersRoutes.get("/profile", adaptedEnsureAuthenticated, routeAdapter(userProfileController));
-usersRoutes.delete("/:user_id", adaptedEnsureAdmin, routeAdapter(deleteUserController));
-usersRoutes.put("/admin/update", adaptedEnsureAdmin, routeAdapter(adminUpdateUserController));
+usersRoutes.put("/update", routeAdapter(updateUserController));
+usersRoutes.get("/", routeAdapter(listAllUsersController));
+usersRoutes.get("/profile", routeAdapter(userProfileController));
+usersRoutes.delete("/:user_id", routeAdapter(deleteUserController));
+usersRoutes.put("/admin/update", routeAdapter(adminUpdateUserController));
