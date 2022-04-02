@@ -1,3 +1,6 @@
+import "reflect-metadata";
+import "../../../container";
+
 import { SignInUserController } from "../../../controllers/authentication/SignInUserController"
 
 export const handle = (event: any) => {
