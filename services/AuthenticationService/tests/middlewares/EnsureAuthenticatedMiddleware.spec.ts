@@ -1,15 +1,15 @@
 import { container } from "tsyringe";
 
 import { JwtAuthenticationTokenProvider } from "../../src/infra/authentication/JwtAuthenticationTokenProvider";
-import { EnsureAuthenticated } from "../../src/middlewares/ensureAuthenticated";
-import { IAuthenticationTokenProvider } from "../../src/useCases/users/ports/IAuthenticationTokenProvider";
+import { EnsureAuthenticated } from "../../src/middlewares/ensureAuthenticatedMiddleware";
+import { IAuthenticationTokenProvider } from "../../src/useCases/authentication/ports/IAuthenticationTokenProvider";
 
 describe("Ensure Authenticated Middleware", () => {
   beforeEach(() => {
     container.registerSingleton<IAuthenticationTokenProvider>("AuthenticationTokenProvider", JwtAuthenticationTokenProvider);
   })
 
-  it("should return status code 200 and successful message if the user is authenticated", async () => {
+  it("should return user id if the user is authenticated", async () => {
     const ensureAuthenticatedMiddleware = container.resolve(EnsureAuthenticated);
 
     const authenticationTokenProvider = new JwtAuthenticationTokenProvider();
@@ -23,11 +23,10 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAuthenticatedMiddleware.handle(fakeRequest);
 
-    expect(response.body).toEqual("User is authenticated!");
-    expect(response.statusCode).toEqual(200);
+    expect(response.value).toEqual("fake-id");
   });
 
-  it("should return status code 401 if the token is missing", async () => {
+  it("should return false if the token is missing", async () => {
     const ensureAuthenticatedMiddleware = container.resolve(EnsureAuthenticated);
 
     const fakeRequest = {
@@ -38,11 +37,10 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAuthenticatedMiddleware.handle(fakeRequest);
 
-    expect(response.body).toEqual("Token is missing!");
-    expect(response.statusCode).toEqual(401);
+    expect(response.value).toEqual(false);
   });
 
-  it("should return status code 401 if the token is invalid", async () => {
+  it("should return false if the token is invalid", async () => {
     const ensureAuthenticatedMiddleware = container.resolve(EnsureAuthenticated);
 
     const fakeRequest = {
@@ -53,7 +51,6 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAuthenticatedMiddleware.handle(fakeRequest);
 
-    expect(response.body).toEqual("Token is invalid!");
-    expect(response.statusCode).toEqual(401);
+    expect(response.value).toEqual(false);
   });
 })

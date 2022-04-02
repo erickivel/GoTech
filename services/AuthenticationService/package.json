@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "test": "dotenv -e .env.test -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma && dotenv -e .env.test -- jest --runInBand"
+  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.61",
     "@types/bcrypt": "^5.0.0",
