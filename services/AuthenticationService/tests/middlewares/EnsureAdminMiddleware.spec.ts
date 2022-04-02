@@ -1,9 +1,9 @@
 import { container } from "tsyringe";
 
 import { JwtAuthenticationTokenProvider } from "../../src/infra/authentication/JwtAuthenticationTokenProvider";
-import { EnsureAdmin } from "../../src/middlewares/ensureAdmin";
-import { IAuthenticationTokenProvider } from "../../src/useCases/users/ports/IAuthenticationTokenProvider";
-import { IUsersRepository } from "../../src/useCases/users/ports/IUsersRepository";
+import { EnsureAdmin } from "../../src/middlewares/ensureAdminMiddleware";
+import { IAuthenticationTokenProvider } from "../../src/useCases/authentication/ports/IAuthenticationTokenProvider";
+import { IUsersRepository } from "../../src/useCases/authentication/ports/IUsersRepository";
 import { UsersRepositoryInMemory } from "../doubles/repositories/UsersRepositoryInMemory";
 import { UsersActions } from "../doubles/UsersActions";
 
@@ -13,7 +13,7 @@ describe("Ensure Authenticated Middleware", () => {
     container.registerSingleton<IUsersRepository>("UsersRepository", UsersRepositoryInMemory);
   })
 
-  it("should return status code 200 and successful message if the user is authenticated and is an admin", async () => {
+  it("should return user id if the user is authenticated and is an admin", async () => {
     const ensureAdminMiddleware = container.resolve(EnsureAdmin);
     const usersActions = container.resolve(UsersActions);
 
@@ -40,11 +40,10 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAdminMiddleware.handle(fakeRequest);
 
-    expect(response.body).toEqual("User is authenticated!");
-    expect(response.statusCode).toEqual(200);
+    expect(response.value).toEqual(id);
   });
 
-  it("should return status code 401 if the token is missing", async () => {
+  it("should return false if the token is missing", async () => {
     const ensureAdminMiddleware = container.resolve(EnsureAdmin);
 
     const fakeRequest = {
@@ -55,11 +54,10 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAdminMiddleware.handle(fakeRequest);
 
-    expect(response.body).toEqual("Token is missing!");
-    expect(response.statusCode).toEqual(401);
+    expect(response.value).toEqual(false);
   });
 
-  it("should return status code 401 if the token is invalid", async () => {
+  it("should return false if the token is invalid", async () => {
     const ensureAdminMiddleware = container.resolve(EnsureAdmin);
 
     const fakeRequest = {
@@ -70,11 +68,10 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAdminMiddleware.handle(fakeRequest);
 
-    expect(response.body).toEqual("Token is invalid!");
-    expect(response.statusCode).toEqual(401);
+    expect(response.value).toEqual(false);
   });
 
-  it("should return status code 401 if the user doesn't exist", async () => {
+  it("should return false if the user doesn't exist", async () => {
     const ensureAdminMiddleware = container.resolve(EnsureAdmin);
 
     const authenticationTokenProvider = new JwtAuthenticationTokenProvider();
@@ -88,11 +85,10 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAdminMiddleware.handle(fakeRequest);
 
-    expect(response.statusCode).toEqual(401);
-    expect(response.body).toEqual("User not found!");
+    expect(response.value).toEqual(false);
   });
 
-  it("should return status code 401 if user is not an admin", async () => {
+  it("should return false if user is not an admin", async () => {
     const ensureAdminMiddleware = container.resolve(EnsureAdmin);
     const usersActions = container.resolve(UsersActions);
 
@@ -119,7 +115,6 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAdminMiddleware.handle(fakeRequest);
 
-    expect(response.statusCode).toEqual(401);
-    expect(response.body).toEqual("User is not an admin!");
+    expect(response.value).toEqual(false);
   });
 })
