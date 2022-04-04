@@ -4,17 +4,19 @@ import { CategoryAlreadyExistsError } from "../../useCases/categories/errors/Cat
 import { UpdateCategoryUseCase } from "../../useCases/categories/UpdateCategoryUseCase";
 import { MissingParamError } from "../errors/MissingParamError";
 import { IController } from "../ports/IController";
-import { IHttpRequest } from "../ports/IHttpRequest";
 import { IHttpResponse } from "../ports/IHttpResponse";
+import { IServerlessHttpRequest } from "../ports/IServerlessHttpRequest";
 import { badRequest, forbidden, serverError, unauthorized, updated } from "../utils/HttpResponses";
 import { IsRequiredParamsMissing } from "../utils/IsRequiredParamsMissing";
 
 export class UpdateCategoryController implements IController {
   requiredParams = ["name"];
 
-  async handle(request: IHttpRequest): Promise<IHttpResponse> {
+  async handle(request: IServerlessHttpRequest): Promise<IHttpResponse> {
     try {
-      if (!request.user || !request.user.id) {
+      const authorizer = request.requestContext.authorizer
+
+      if (!authorizer?.user || !authorizer.user?.id) {
         return unauthorized("User is not authenticated!");
       };
 
@@ -24,12 +26,12 @@ export class UpdateCategoryController implements IController {
         return badRequest(new MissingParamError(requiredParamsMissing).message);
       };
 
-      if (!request.params.id) {
+      if (!request.pathParameters.id) {
         return badRequest(new MissingParamError("category_id").message);
       };
 
       const { name } = request.body;
-      const { id } = request.params;
+      const { id } = request.pathParameters;
 
       const updateCategoryUseCase = container.resolve(UpdateCategoryUseCase);
 
