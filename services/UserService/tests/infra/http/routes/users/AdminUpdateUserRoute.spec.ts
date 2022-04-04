@@ -17,6 +17,19 @@ describe("Admin Update User Route", () => {
 
     await prismaClient.$connect();
 
+    await prismaClient.$connect();
+    await prismaClient.users.create({
+      data: {
+        id: "admin-id",
+        email: "admin@example.com",
+        name: "Admin",
+        password: hashedPassword,
+        isAdmin: true,
+        createdAt: dateNow,
+        updatedAt: dateNow,
+      }
+    });
+
     await prismaClient.users.create({
       data: {
         id: "fake-id",
@@ -42,6 +55,9 @@ describe("Admin Update User Route", () => {
         user_id_to_be_updated: "fake-id",
         name: "New Name",
         email: "new-email@example.com",
+      })
+      .set({
+        userid: "admin-id"
       })
       .expect(201);
 

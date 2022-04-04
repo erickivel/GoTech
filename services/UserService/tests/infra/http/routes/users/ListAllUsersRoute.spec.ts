@@ -16,6 +16,18 @@ describe("List All Users Profile Route", () => {
     dateNow = new Date();
 
     await prismaClient.$connect();
+
+    await prismaClient.users.create({
+      data: {
+        id: "admin-id",
+        email: "admin@example.com",
+        name: "Admin",
+        password: hashedPassword,
+        isAdmin: true,
+        createdAt: dateNow,
+        updatedAt: dateNow,
+      }
+    });
   });
 
   afterAll(async () => {
@@ -26,11 +38,14 @@ describe("List All Users Profile Route", () => {
   it("should return status code 200 and body with all users if user is authenticated and is an admin", async () => {
     const response = await request(app)
       .get("/users")
+      .set({
+        userid: "admin-id",
+      })
       .expect(200);
 
     const expectedResponse = [
       {
-        id: "fake id",
+        id: "admin-id",
         email: "admin@example.com",
         name: "Admin",
         createdAt: dateNow.toISOString(),
@@ -39,24 +54,5 @@ describe("List All Users Profile Route", () => {
     ]
 
     expect(response.body).toEqual(expectedResponse);
-  });
-
-  it("should return status code 401 and body with unauthorized message if token is invalid", async () => {
-    const response = await request(app)
-      .get("/users")
-      .set({
-        Authorization: `Bearer invalid-token`
-      })
-      .expect(401);
-
-    expect(response.body).toEqual("Token is invalid!");
-  });
-
-  it("should return status code 401 and body with unauthorized message if token is missing", async () => {
-    const response = await request(app)
-      .get("/users")
-      .expect(401);
-
-    expect(response.body).toEqual("Token is missing!");
   });
 });

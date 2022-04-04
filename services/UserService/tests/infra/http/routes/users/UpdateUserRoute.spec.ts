@@ -5,18 +5,27 @@ import { BcryptEncoder } from "../../../../../src/infra/encoder/BcryptEncoder";
 import { app } from '../../../../../src/infra/http/app';
 
 describe("Update User Route", () => {
+  let hashedPassword: string;
+  let dateNow: Date;
+
   beforeAll(async () => {
     const bcryptEncoder = new BcryptEncoder();
 
-    const hashedPassword = await bcryptEncoder.encode("password");
+    hashedPassword = await bcryptEncoder.encode("password");
+
+    dateNow = new Date();
 
     await prismaClient.$connect();
+
     await prismaClient.users.create({
       data: {
-        id: "fake id",
+        id: "fake-id",
         email: "user@example.com",
         name: "User",
         password: hashedPassword,
+        isAdmin: false,
+        createdAt: dateNow,
+        updatedAt: dateNow,
       }
     });
   });
@@ -27,15 +36,6 @@ describe("Update User Route", () => {
   });
 
   it("should return status code 201 and body with updated user data if user is authenticated", async () => {
-    const signInResponse = await request(app)
-      .post("/sessions")
-      .send({
-        email: "user@example.com",
-        password: "password"
-      });
-
-    const { token } = signInResponse.body;
-
     const response = await request(app)
       .put("/users/update")
       .send({
@@ -46,12 +46,12 @@ describe("Update User Route", () => {
         confirm_password: "newPassword",
       })
       .set({
-        Authorization: `Bearer ${token}`
+        userid: "fake-id"
       })
       .expect(201);
 
     const expectedResponse = {
-      id: "fake id",
+      id: "fake-id",
       name: "New Name",
       email: "newuser@example.com"
     }

@@ -26,8 +26,6 @@ export default {
     "<rootDir>/src/domain/entities/**/*.ts",
     "<rootDir>/src/infra/**/*.ts",
     "<rootDir>/!src/infra/http/server.ts",
-    "<rootDir>/src/middlewares/**/*.ts",
-    "<rootDir>/!src/middlewares/ports/*.ts",
     "<rootDir>/src/useCases/**/*.ts",
     "<rootDir>/!src/useCases/**/ports/*.ts",
   ],
