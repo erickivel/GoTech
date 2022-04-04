@@ -20,8 +20,6 @@ export class EnsureAuthenticated implements IMiddleware {
 
       const authHeader = request.headers.authorization;
 
-      console.log(authHeader);
-
       const [, token] = authHeader.split(" ");
 
       const user_id = this.authenticationTokenProvider.verify(

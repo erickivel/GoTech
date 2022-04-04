@@ -9,8 +9,6 @@ export const handle = async (event: any) => {
 
   const response = await ensureAuthenticatedMiddleware.handle(event);
 
-  console.log(response);
-
   if (response.isLeft()) {
     return {
       "isAuthorized": false,
