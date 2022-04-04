@@ -16,13 +16,16 @@ export class SignInUserController implements IController {
     try {
       const signInUserUseCase = container.resolve(SignInUserUseCase);
 
-      const requiredParamsMissing = IsRequiredParamsMissing(request.body, this.requiredParams)
+      const body = JSON.parse(request.body);
+
+      const requiredParamsMissing = IsRequiredParamsMissing(body, this.requiredParams)
 
       if (requiredParamsMissing) {
         return badRequest(new MissingParamError(requiredParamsMissing).message);
       };
 
-      const { email, password } = request.body;
+      const { email, password } = body;
+
 
       const response = await signInUserUseCase.execute({
         email,

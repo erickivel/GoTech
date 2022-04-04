@@ -3,10 +3,13 @@ import "../../../container";
 
 import { SignInUserController } from "../../../controllers/authentication/SignInUserController"
 
-export const handle = (event: any) => {
+export const handle = async (event: any) => {
   const signInUserController = new SignInUserController();
 
-  const response = signInUserController.handle(event);
+  const response = await signInUserController.handle(event);
 
-  return response;
-}
+  return {
+    statusCode: response.statusCode,
+    body: JSON.stringify(response.body)
+  };
+};
