@@ -21,5 +21,11 @@ export class UsersActions {
     const users = await this.usersRepository.listAll();
 
     return users;
+  };
+
+  async findByEmail(email: string): Promise<IUserData> {
+    const user = await this.findByEmail(email);
+
+    return user;
   }
 };

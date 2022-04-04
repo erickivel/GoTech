@@ -16,17 +16,6 @@ describe("Admin Update User Route", () => {
     dateNow = new Date();
 
     await prismaClient.$connect();
-    await prismaClient.users.create({
-      data: {
-        id: "admin-id",
-        email: "admin@example.com",
-        name: "Admin",
-        password: hashedPassword,
-        isAdmin: true,
-        createdAt: dateNow,
-        updatedAt: dateNow,
-      }
-    });
 
     await prismaClient.users.create({
       data: {
@@ -47,24 +36,12 @@ describe("Admin Update User Route", () => {
   });
 
   it("should return status code 201 and body with user updated if user is authenticated and is an admin", async () => {
-    const signInResponse = await request(app)
-      .post("/sessions")
-      .send({
-        email: "admin@example.com",
-        password: "password"
-      });
-
-    const { token } = signInResponse.body;
-
     const response = await request(app)
       .put("/users/admin/update")
       .send({
         user_id_to_be_updated: "fake-id",
         name: "New Name",
         email: "new-email@example.com",
-      })
-      .set({
-        Authorization: `Bearer ${token}`
       })
       .expect(201);
 

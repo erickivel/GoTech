@@ -1,25 +1,20 @@
 import { container } from "tsyringe";
 
-import { SignInUserController } from "../../../src/controllers/users/SignInUserController";
 import { UpdateUserController } from "../../../src/controllers/users/UpdateUserController";
-import { JwtAuthenticationTokenProvider } from "../../../src/infra/authentication/JwtAuthenticationTokenProvider";
 import { BcryptEncoder } from "../../../src/infra/encoder/BcryptEncoder";
 import { CreateUserUseCase } from "../../../src/useCases/users/CreateUserUseCase";
-import { IAuthenticationTokenProvider } from "../../../src/useCases/users/ports/IAuthenticationTokenProvider";
 import { IEncoder } from "../../../src/useCases/users/ports/IEncoder";
 import { IUsersRepository } from "../../../src/useCases/users/ports/IUsersRepository";
 import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
+import { UsersActions } from "../../doubles/UsersActions";
 
 describe("Update User Controller", () => {
   let updateUserController: UpdateUserController;
-  let signInUserController: SignInUserController;
 
   beforeEach(() => {
     container.registerSingleton<IUsersRepository>("UsersRepository", UsersRepositoryInMemory);
     container.registerSingleton<IEncoder>("Encoder", BcryptEncoder);
-    container.registerSingleton<IAuthenticationTokenProvider>("AuthenticationTokenProvider", JwtAuthenticationTokenProvider);
     updateUserController = new UpdateUserController();
-    signInUserController = new SignInUserController();
   });
 
   afterAll(() => {
@@ -90,14 +85,9 @@ describe("Update User Controller", () => {
 
     const result = await updateUserController.handle(fakeRequest);
 
-    const signInRequest = {
-      body: {
-        email: "john@example.com",
-        password: "newPassword"
-      }
-    };
+    const usersActions = container.resolve(UsersActions);
 
-    const userAndToken = await signInUserController.handle(signInRequest)
+    const user = await usersActions.findByEmail("john@example.com");
 
     const expectedUpdatedUserResponse = {
       id: userOrError.value.id,
@@ -105,10 +95,10 @@ describe("Update User Controller", () => {
       email: "john@example.com",
     };
 
+    expect(user.password).toEqual("newPassword");
     expect(result.statusCode).toBe(201);
     expect(result.body).toEqual(expectedUpdatedUserResponse);
-    expect(userAndToken.body).toHaveProperty("user");
-    expect(userAndToken.body).toHaveProperty("token");
+
   });
 
   it("should return status code 403 if trying to update a user with an already taken email", async () => {

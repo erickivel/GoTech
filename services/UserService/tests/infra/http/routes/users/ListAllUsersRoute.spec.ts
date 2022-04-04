@@ -16,17 +16,6 @@ describe("List All Users Profile Route", () => {
     dateNow = new Date();
 
     await prismaClient.$connect();
-    await prismaClient.users.create({
-      data: {
-        id: "fake id",
-        email: "admin@example.com",
-        name: "Admin",
-        password: hashedPassword,
-        isAdmin: true,
-        createdAt: dateNow,
-        updatedAt: dateNow,
-      }
-    });
   });
 
   afterAll(async () => {
@@ -35,20 +24,8 @@ describe("List All Users Profile Route", () => {
   });
 
   it("should return status code 200 and body with all users if user is authenticated and is an admin", async () => {
-    const signInResponse = await request(app)
-      .post("/sessions")
-      .send({
-        email: "admin@example.com",
-        password: "password"
-      });
-
-    const { token } = signInResponse.body;
-
     const response = await request(app)
       .get("/users")
-      .set({
-        Authorization: `Bearer ${token}`
-      })
       .expect(200);
 
     const expectedResponse = [

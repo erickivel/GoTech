@@ -1,10 +1,8 @@
 import { container } from "tsyringe";
 
 import { UserProfileController } from "../../../src/controllers/users/UserProfileController";
-import { JwtAuthenticationTokenProvider } from "../../../src/infra/authentication/JwtAuthenticationTokenProvider";
 import { BcryptEncoder } from "../../../src/infra/encoder/BcryptEncoder";
 import { CreateUserUseCase } from "../../../src/useCases/users/CreateUserUseCase";
-import { IAuthenticationTokenProvider } from "../../../src/useCases/users/ports/IAuthenticationTokenProvider";
 import { IEncoder } from "../../../src/useCases/users/ports/IEncoder";
 import { IUsersRepository } from "../../../src/useCases/users/ports/IUsersRepository";
 import { UsersRepositoryInMemory } from "../../doubles/repositories/UsersRepositoryInMemory";
@@ -15,7 +13,6 @@ describe("User Profile Controller", () => {
   beforeEach(() => {
     container.registerSingleton<IUsersRepository>("UsersRepository", UsersRepositoryInMemory);
     container.registerSingleton<IEncoder>("Encoder", BcryptEncoder);
-    container.registerSingleton<IAuthenticationTokenProvider>("AuthenticationTokenProvider", JwtAuthenticationTokenProvider);
     userProfileController = new UserProfileController();
   });
 
