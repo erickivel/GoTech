@@ -2,5 +2,6 @@ node_modules
 jspm_packages
 coverage
 .serverless
+serverless-secrets.json
 .env.development
 .env.test
