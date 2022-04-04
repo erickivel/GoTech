@@ -57,7 +57,7 @@ describe("Update User Controller", () => {
     expect(result.body).toEqual(expectedResponse);
   });
 
-  it("should return status code 200 and user updated on body if user password is successfully updated", async () => {
+  it("should return status code 201 and user updated on body if user password is successfully updated", async () => {
     const createUserUseCase = container.resolve(CreateUserUseCase);
 
     const userOrError = await createUserUseCase.execute({
@@ -86,8 +86,14 @@ describe("Update User Controller", () => {
     const result = await updateUserController.handle(fakeRequest);
 
     const usersActions = container.resolve(UsersActions);
-
     const user = await usersActions.findByEmail("john@example.com");
+
+    if (!user?.password) {
+      throw new Error("User not found");
+    };
+
+    const bcryptEncoder = new BcryptEncoder();
+    const passwordMatch = await bcryptEncoder.compare("newPassword", user.password);
 
     const expectedUpdatedUserResponse = {
       id: userOrError.value.id,
@@ -95,10 +101,9 @@ describe("Update User Controller", () => {
       email: "john@example.com",
     };
 
-    expect(user.password).toEqual("newPassword");
+    expect(passwordMatch).toBeTruthy();
     expect(result.statusCode).toBe(201);
     expect(result.body).toEqual(expectedUpdatedUserResponse);
-
   });
 
   it("should return status code 403 if trying to update a user with an already taken email", async () => {

@@ -23,8 +23,8 @@ export class UsersActions {
     return users;
   };
 
-  async findByEmail(email: string): Promise<IUserData> {
-    const user = await this.findByEmail(email);
+  async findByEmail(email: string): Promise<IUserData | null> {
+    const user = await this.usersRepository.findByEmail(email);
 
     return user;
   }
