@@ -1,6 +1,5 @@
 import { container } from "tsyringe";
 
-
 import { JwtAuthenticationTokenProvider } from "../infra/authentication/JwtAuthenticationTokenProvider";
 import { PrismaUsersRepository } from "../infra/database/prisma/repositories/PrismaUsersRepository";
 import { BcryptEncoder } from "../infra/encoder/BcryptEncoder";
