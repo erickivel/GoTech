@@ -1,4 +1,4 @@
-export const handle = (event: any, context: any) => {
+export const handle = async (event: any) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify(
@@ -9,7 +9,5 @@ export const handle = (event: any, context: any) => {
     ),
   }
 
-  return new Promise((resolve) => {
-    resolve(response)
-  });
+  return response
 };
