@@ -4,17 +4,20 @@ import { CreateCategoryUseCase } from "../../useCases/categories/CreateCategoryU
 import { CategoryAlreadyExistsError } from "../../useCases/categories/errors/CategoryAlreadyExistsError";
 import { MissingParamError } from "../errors/MissingParamError";
 import { IController } from "../ports/IController";
-import { IHttpRequest } from "../ports/IHttpRequest";
 import { IHttpResponse } from "../ports/IHttpResponse";
+import { IServerlessHttpRequest } from "../ports/IServerlessHttpRequest";
 import { badRequest, created, forbidden, serverError, unauthorized } from "../utils/HttpResponses";
 import { IsRequiredParamsMissing } from "../utils/IsRequiredParamsMissing";
 
 export class CreateCategoryController implements IController {
   requiredParams = ["name"];
 
-  async handle(request: IHttpRequest): Promise<IHttpResponse> {
+  async handle(request: IServerlessHttpRequest): Promise<IHttpResponse> {
     try {
-      if (!request.user || !request.user.id) {
+      console.log(request);
+      const authorizer = request.requestContext.authorizer
+
+      if (!authorizer?.user || !authorizer.user?.id) {
         return unauthorized("User is not authenticated!");
       };
 
