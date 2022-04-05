@@ -15,4 +15,8 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
 
     return product || null;
   };
+
+  async listAll(): Promise<IProductData[]> {
+    return this.products;
+  }
 };
