@@ -25,21 +25,28 @@ functions:
     events:
       - http:
           method: POST
-          path: /category
+          path: /categories
           cors: true
   DeleteCategory:
     handler: src/infra/serverless/functions/DeleteCategory.handle
     events:
       - http:
           method: DELETE
-          path: /category/delete/{id}
+          path: /categories/delete/{id}
           cors: true
   UpdateCategory:
     handler: src/infra/serverless/functions/UpdateCategory.handle
     events:
       - http:
           method: PUT
-          path: /category/update/{id}
+          path: /categories/update/{id}
+          cors: true
+  CreateProduct:
+    handler: src/infra/serverless/functions/CreateProduct.handle
+    events:
+      - http:
+          method: POST
+          path: /products
           cors: true
   
 package:
