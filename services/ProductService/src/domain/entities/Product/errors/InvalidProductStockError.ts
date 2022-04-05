@@ -1,6 +1,6 @@
 export class InvalidProductStockError extends Error {
   constructor(stock: number) {
-    super(`"${stock}" is an invalid category stock`);
+    super(`"${stock}" is an invalid product stock`);
     this.name = "InvalidProductStockError";
   };
 };
