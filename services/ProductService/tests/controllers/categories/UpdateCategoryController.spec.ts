@@ -30,13 +30,17 @@ describe("Update Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
         name: "New Category Name"
       },
-      params: {
+      pathParameters: {
         id: "fake-id"
       }
     };
@@ -67,12 +71,16 @@ describe("Update Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
+      requestContext: {
+        authorizer: {
+          user: {
+          }
+        }
       },
       body: {
         name: "New Category Name"
       },
-      params: {
+      pathParameters: {
         id: "fake-id"
       }
     };
@@ -96,12 +104,16 @@ describe("Update Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
       },
-      params: {
+      pathParameters: {
         id: "fake-id"
       }
     };
@@ -125,13 +137,17 @@ describe("Update Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
         name: "New Category Name"
       },
-      params: {
+      pathParameters: {
       }
     };
 
@@ -161,13 +177,17 @@ describe("Update Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
         name: "Category 2"
       },
-      params: {
+      pathParameters: {
         id: "fake-id-1"
       }
     };
@@ -193,13 +213,17 @@ describe("Update Category Controller", () => {
     const invalidName = "a";
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
         name: invalidName
       },
-      params: {
+      pathParameters: {
         id: "fake-id-1"
       }
     };

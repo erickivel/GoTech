@@ -18,8 +18,12 @@ describe("Create Category Controller", () => {
 
   it("should return status code 201 and body with the created category", async () => {
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
         name: "Category Name"
@@ -35,8 +39,12 @@ describe("Create Category Controller", () => {
 
   it("should return status code 400 if name is missing", async () => {
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
       },
@@ -50,7 +58,11 @@ describe("Create Category Controller", () => {
 
   it("should return status code 401 if user id is missing", async () => {
     const fakeRequest = {
-      user: {
+      requestContext: {
+        authorizer: {
+          user: {
+          }
+        }
       },
       body: {
         name: "Category Name"
@@ -65,8 +77,12 @@ describe("Create Category Controller", () => {
 
   it("should return status code 403 if trying to create an existent category", async () => {
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
         name: "Category Name"
@@ -84,8 +100,12 @@ describe("Create Category Controller", () => {
     const invalidName = "a";
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
       body: {
         name: invalidName

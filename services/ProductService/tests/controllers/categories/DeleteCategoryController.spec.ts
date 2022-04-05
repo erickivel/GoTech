@@ -30,11 +30,15 @@ describe("Delete Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
-      params: {
-        category_id: "fake-id"
+      pathParameters: {
+        id: "fake-id"
       }
     };
 
@@ -60,10 +64,14 @@ describe("Delete Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
+      requestContext: {
+        authorizer: {
+          user: {
+          }
+        }
       },
-      params: {
-        category_id: "fake-id"
+      pathParameters: {
+        id: "fake-id"
       }
     };
 
@@ -86,10 +94,14 @@ describe("Delete Category Controller", () => {
     });
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
-      params: {
+      pathParameters: {
       }
     };
 
@@ -114,11 +126,15 @@ describe("Delete Category Controller", () => {
     const inexistentId = "inexistent-id";
 
     const fakeRequest = {
-      user: {
-        id: "admin-id"
+      requestContext: {
+        authorizer: {
+          user: {
+            id: "admin-id"
+          }
+        }
       },
-      params: {
-        category_id: inexistentId
+      pathParameters: {
+        id: inexistentId
       }
     };
 
