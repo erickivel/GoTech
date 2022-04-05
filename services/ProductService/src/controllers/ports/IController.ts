@@ -4,5 +4,5 @@ import { IServerlessHttpRequest } from "./IServerlessHttpRequest";
 
 export interface IController {
   readonly requiredParams?: string[];
-  handle(request: IHttpRequest): Promise<IHttpResponse | IServerlessHttpRequest>;
+  handle(request: IHttpRequest | IServerlessHttpRequest): Promise<IHttpResponse>;
 }
