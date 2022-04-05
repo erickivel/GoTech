@@ -15,14 +15,12 @@ export const handle = async (event: any) => {
     }
   }
 
-  const userId = response.value;
+  const user = response.value;
 
   return {
     "isAuthorized": true,
     "context": {
-      "user": {
-        "id": userId
-      }
-    }
-  }
-}
+      "user": user,
+    },
+  };
+};

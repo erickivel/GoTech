@@ -6,6 +6,12 @@ import { IUsersRepository } from "../useCases/authentication/ports/IUsersReposit
 import { IHttpRequest } from "./ports/IHttpRequest";
 import { IMiddleware } from "./ports/IMiddleware";
 
+interface IResponse {
+  id: string;
+  name: string;
+  email: string;
+}
+
 @injectable()
 export class EnsureAdmin implements IMiddleware {
   constructor(
@@ -15,7 +21,7 @@ export class EnsureAdmin implements IMiddleware {
     private usersRepository: IUsersRepository,
   ) { }
 
-  async handle(request: IHttpRequest): Promise<Either<false, string>> {
+  async handle(request: IHttpRequest): Promise<Either<false, IResponse>> {
     try {
       if (!request.headers.authorization) {
         return left(false);
@@ -43,10 +49,13 @@ export class EnsureAdmin implements IMiddleware {
         return left(false);
       }
 
-      request.user = {
-        id: user_id,
+      const userResponse = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
       }
-      return right(user_id);
+
+      return right(userResponse);
     } catch (error) {
       return left(false);
     };
