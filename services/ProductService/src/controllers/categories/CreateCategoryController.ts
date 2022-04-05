@@ -14,7 +14,6 @@ export class CreateCategoryController implements IController {
 
   async handle(request: IServerlessHttpRequest): Promise<IHttpResponse> {
     try {
-      console.log(request);
       const authorizer = request.requestContext.authorizer
 
       if (!authorizer?.user || !authorizer.user?.id) {
