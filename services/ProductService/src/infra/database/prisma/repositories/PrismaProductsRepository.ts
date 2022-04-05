@@ -36,4 +36,21 @@ export class PrismaProductsRepository implements IProductsRepository {
       price: Number(productOrNull.price),
     } : null;
   };
+
+  async listAll(): Promise<IProductData[]> {
+    const products = await prismaClient.products.findMany({
+      include: {
+        category: true,
+      }
+    });
+
+    const formattedProducts = products.map(product => {
+      return {
+        ...product,
+        price: Number(product.price),
+      }
+    })
+
+    return formattedProducts;
+  }
 };
