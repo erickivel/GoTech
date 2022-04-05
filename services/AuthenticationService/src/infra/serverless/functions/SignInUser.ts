@@ -2,8 +2,9 @@ import "reflect-metadata";
 import "../../../container";
 
 import { SignInUserController } from "../../../controllers/authentication/SignInUserController"
+import { MiddyMiddleware } from "../utils/commonMiddleware";
 
-export const handle = async (event: any) => {
+const SignInUser = async (event: any) => {
   const signInUserController = new SignInUserController();
 
   const response = await signInUserController.handle(event);
@@ -13,3 +14,5 @@ export const handle = async (event: any) => {
     body: JSON.stringify(response.body)
   };
 };
+
+export const handle = MiddyMiddleware(SignInUser);

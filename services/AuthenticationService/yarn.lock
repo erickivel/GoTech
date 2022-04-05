@@ -511,6 +511,42 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
+"@middy/core@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@middy/core/-/core-2.5.7.tgz#a1b3eff68881ff66b14b5051255791f7cbd3b471"
+  integrity sha512-KX5Ud0SP+pol6PGkYtMCH4goHobs1XJo3OvEUwdiZUIjZgo56Q08nLu5N7Bs6P+FwGTQHA+hlQ3I5SZbfpO/jg==
+
+"@middy/http-cors@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@middy/http-cors/-/http-cors-2.5.7.tgz#45a29418a8934db47a2881370098956a15d37599"
+  integrity sha512-YPs5/jL6ujabJ7fo9xCxbsuO0U7cF/eMmtJfghRhJaUzxThuEou1QiXFvtXJwhfT1Rf+69rv36+BE3qAgEG5mg==
+  dependencies:
+    "@middy/util" "^2.5.7"
+
+"@middy/http-error-handler@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@middy/http-error-handler/-/http-error-handler-2.5.7.tgz#37c8ab77d270f1cd73752ad19e15ca8278876309"
+  integrity sha512-1/7L3OHGlQ2IuxL4e4Ylt81sfq5OX2G7q+uZoV5tP4d4KKVN8ftS1ExiMrZGH1r1fyVR3Voh9b2rHD6t/TZZyQ==
+  dependencies:
+    "@middy/util" "^2.5.7"
+
+"@middy/http-event-normalizer@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@middy/http-event-normalizer/-/http-event-normalizer-2.5.7.tgz#07adaea7fb729b5b3d2980c98c079b4e6f41287e"
+  integrity sha512-Pq/Cqurmar/DaQ6nYPfUD05fMu/pQwN+4a3NskiB6U3Bs6esFOjuTuE9kK/zD9uWU4Rqi1Axu2ZnzdMI2Sudwg==
+
+"@middy/http-json-body-parser@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@middy/http-json-body-parser/-/http-json-body-parser-2.5.7.tgz#966dccc77ec5a0a163efe731b7c7007adf821513"
+  integrity sha512-6xysTWlK8s8QTVyQE9MfXR6fIY9h26uyiD1rM0mmYzGhLqWmamHgJvXzpBVXyRwOej451zSfjdSgKU66nxZmrw==
+  dependencies:
+    "@middy/util" "^2.5.7"
+
+"@middy/util@^2.5.7":
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/@middy/util/-/util-2.5.7.tgz#4a08ebb8ec04c3a62ec35007399b675f93119446"
+  integrity sha512-4CwEVfUyvF0n1qtEzrcrV56L7iQYyt6zChYQ9N5/uvQgAhdExLzOinW6ki1ZjTMgaMypqdHNUyDAEiAuNJLRUw==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
