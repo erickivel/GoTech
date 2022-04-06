@@ -19,7 +19,7 @@ describe("Ensure Authenticated Middleware", () => {
 
     const id = "fake-id";
 
-    usersActions.create({
+    const user = await usersActions.create({
       id,
       name: "John",
       email: "john@example.com",
@@ -40,7 +40,13 @@ describe("Ensure Authenticated Middleware", () => {
 
     const response = await ensureAdminMiddleware.handle(fakeRequest);
 
-    expect(response.value).toEqual(id);
+    const expectedResponse = {
+      id,
+      name: user.name,
+      email: user.email,
+    }
+
+    expect(response.value).toEqual(expectedResponse);
   });
 
   it("should return false if the token is missing", async () => {

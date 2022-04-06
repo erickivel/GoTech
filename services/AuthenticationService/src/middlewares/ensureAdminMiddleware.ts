@@ -57,6 +57,7 @@ export class EnsureAdmin implements IMiddleware {
 
       return right(userResponse);
     } catch (error) {
+      console.error(error);
       return left(false);
     };
   };

@@ -49,9 +49,9 @@ describe("SignIn User Controller", () => {
 
     const result = await signInUserController.handle(fakeRequest);
 
-    expect(result.statusCode).toBe(200);
     expect(result.body).toHaveProperty("user");
     expect(result.body).toHaveProperty("token");
+    expect(result.statusCode).toBe(200);
   });
 
   it("should return status code 403 when trying sign in with incorrect email", async () => {
@@ -76,8 +76,8 @@ describe("SignIn User Controller", () => {
 
     const result = await signInUserController.handle(fakeRequest);
 
-    expect(result.statusCode).toBe(403);
     expect(result.body).toEqual("Email or password incorrect");
+    expect(result.statusCode).toBe(403);
   });
 
   it("should return status code 403 when trying sign in with incorrect password", async () => {
@@ -102,8 +102,8 @@ describe("SignIn User Controller", () => {
 
     const result = await signInUserController.handle(fakeRequest);
 
-    expect(result.statusCode).toBe(403);
     expect(result.body).toEqual("Email or password incorrect");
+    expect(result.statusCode).toBe(403);
   });
 
   it("should return status code 400 when the email is missing", async () => {
@@ -115,8 +115,8 @@ describe("SignIn User Controller", () => {
 
     const result = await signInUserController.handle(fakeRequest);
 
-    expect(result.statusCode).toBe(400);
     expect(result.body).toEqual("Missing parameter(s): email.")
+    expect(result.statusCode).toBe(400);
   });
 
   it("should return status code 400 when the password is missing", async () => {
@@ -128,8 +128,8 @@ describe("SignIn User Controller", () => {
 
     const result = await signInUserController.handle(fakeRequest);
 
-    expect(result.statusCode).toBe(400);
     expect(result.body).toEqual("Missing parameter(s): password.")
+    expect(result.statusCode).toBe(400);
   });
 
   it("should return status code 400 when the email and password are missing", async () => {
@@ -140,7 +140,7 @@ describe("SignIn User Controller", () => {
 
     const result = await signInUserController.handle(fakeRequest);
 
-    expect(result.statusCode).toBe(400);
     expect(result.body).toEqual("Missing parameter(s): email, password.")
+    expect(result.statusCode).toBe(400);
   });
 })

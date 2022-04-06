@@ -53,6 +53,7 @@ export class EnsureAuthenticated implements IMiddleware {
 
       return right(userResponse);
     } catch (error) {
+      console.error(error);
       return left(false);
     };
   };
