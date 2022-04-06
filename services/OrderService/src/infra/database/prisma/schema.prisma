@@ -1,0 +1,43 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+model Users {
+  id    String @id
+  name  String
+  email String @unique
+
+  orders Orders[]
+
+  @@map("users")
+}
+
+model Products {
+  id     String  @id
+  name   String  @unique
+  price  Decimal @db.Decimal(8, 2)
+  amount Int
+
+  orders Orders[]
+
+  @@map("products")
+}
+
+model Orders {
+  id        String   @id @default(uuid())
+  total     Decimal  @db.Decimal(8, 2)
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  user     Users      @relation(fields: [userId], references: [id])
+  products Products[]
+
+  @@map("orders")
+}
