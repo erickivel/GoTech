@@ -28,7 +28,7 @@ interface IRequest {
 };
 
 @injectable()
-export class CreateOrderUseCase {
+export class PlaceOrderUseCase {
   constructor(
     @inject("OrdersRepository")
     private ordersRepository: IOrdersRepository,

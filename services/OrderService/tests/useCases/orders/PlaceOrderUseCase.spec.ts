@@ -1,17 +1,17 @@
 import { InvalidOrderTotalError } from "../../../src/domain/entities/Order/errors/InvalidOrderTotalError";
-import { CreateOrderUseCase } from "../../../src/useCases/orders/CreateOrderUseCase";
+import { PlaceOrderUseCase } from "../../../src/useCases/orders/PlaceOrderUseCase";
 import { OrdersRepositoryInMemory } from "../../doubles/repositories/OrdersRepositoryInMemory";
 
-describe("Create Order UseCase", () => {
+describe("Place Order UseCase", () => {
   let ordersRepositoryInMemory: OrdersRepositoryInMemory;
-  let createOrderUseCase: CreateOrderUseCase;
+  let placeOrderUseCase: PlaceOrderUseCase;
 
   beforeEach(() => {
     ordersRepositoryInMemory = new OrdersRepositoryInMemory();
-    createOrderUseCase = new CreateOrderUseCase(ordersRepositoryInMemory);
+    placeOrderUseCase = new PlaceOrderUseCase(ordersRepositoryInMemory);
   });
 
-  it("should create an order", async () => {
+  it("should place an order", async () => {
     const order = {
       user: {
         id: "user-id",
@@ -34,9 +34,7 @@ describe("Create Order UseCase", () => {
       ],
     };
 
-    const orderOrError = await createOrderUseCase.execute(order);
-
-    console.log(orderOrError.value);
+    const orderOrError = await placeOrderUseCase.execute(order);
 
     expect(orderOrError.isRight).toBeTruthy();
     expect(orderOrError.value).toHaveProperty("id");
@@ -48,7 +46,7 @@ describe("Create Order UseCase", () => {
     };
   });
 
-  it("should not create an order if total is invalid", async () => {
+  it("should not place an order if total is invalid", async () => {
     const invalidPrice = 12.458;
 
     const order = {
@@ -73,9 +71,7 @@ describe("Create Order UseCase", () => {
       ],
     };
 
-    const orderOrError = await createOrderUseCase.execute(order);
-
-    console.log(orderOrError.value);
+    const orderOrError = await placeOrderUseCase.execute(order);
 
     expect(orderOrError.isRight).toBeTruthy();
     expect(orderOrError.value).toEqual(new InvalidOrderTotalError(267.048)); // 254.59 + 12.458
