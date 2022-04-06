@@ -44,17 +44,17 @@ export class PlaceOrderUseCase {
       return acc += (product.price * product.amount);
     }, 0)
 
-    const OrderOrError = Order.create({
+    const orderOrError = Order.create({
       user,
       products,
-      total,
+      total: Number(total.toFixed(2)),
     });
 
-    if (OrderOrError.isLeft()) {
-      return left(OrderOrError.value);
+    if (orderOrError.isLeft()) {
+      return left(orderOrError.value);
     }
 
-    const order = await this.ordersRepository.create(OrderOrError.value);
+    const order = await this.ordersRepository.create(orderOrError.value);
 
     return right(order);
   };

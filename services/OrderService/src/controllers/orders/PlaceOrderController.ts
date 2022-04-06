@@ -37,6 +37,10 @@ export class PlaceOrderController implements IController {
 
       const response = await placeOrderUseCase.execute({ products, user });
 
+      if (response.isLeft()) {
+        return forbidden(response.value.message);
+      }
+
       return created(response.value);
     } catch (error) {
       console.error(error);

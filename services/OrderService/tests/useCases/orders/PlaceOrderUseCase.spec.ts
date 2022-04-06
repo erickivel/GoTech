@@ -45,35 +45,4 @@ describe("Place Order UseCase", () => {
       expect(orderOrError.value.total).toEqual(642.85); // 254.59 + (129.42 * 3)
     };
   });
-
-  it("should not place an order if total is invalid", async () => {
-    const invalidPrice = 12.458;
-
-    const order = {
-      user: {
-        id: "user-id",
-        name: "User Name",
-        email: "user@example.com"
-      },
-      products: [
-        {
-          id: "product-id",
-          name: "Product 1",
-          price: 254.59,
-          amount: 1
-        },
-        {
-          id: "product-id-2",
-          name: "Product 2",
-          price: invalidPrice,
-          amount: 1
-        }
-      ],
-    };
-
-    const orderOrError = await placeOrderUseCase.execute(order);
-
-    expect(orderOrError.isRight).toBeTruthy();
-    expect(orderOrError.value).toEqual(new InvalidOrderTotalError(267.048)); // 254.59 + 12.458
-  });
 });
