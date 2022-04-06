@@ -1,0 +1,37 @@
+service: order-service-serverless
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 512
+  region: sa-east-1
+  vpc:
+    securityGroupIds:
+      - ${file(./serverless-secrets.json):SECURITY_GROUP_ID}
+    subnetIds:
+      - ${file(./serverless-secrets.json):SUBNET_ID1}
+      - ${file(./serverless-secrets.json):SUBNET_ID2}
+      - ${file(./serverless-secrets.json):SUBNET_ID3}
+
+functions:
+  PlaceOrder:
+    handler: src/infra/serverless/functions/PlaceOrder.handle
+    events:
+      - http:
+          method: POST
+          path: /orders
+          cors: true
+  
+package:
+  exclude:
+    - ./node_modules/prisma/**
+
+custom:
+  dotenv:
+    path: ".env.development"
