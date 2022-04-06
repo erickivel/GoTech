@@ -2,7 +2,6 @@ import { container } from "tsyringe";
 
 import { PlaceOrderController } from "../../src/controllers/orders/PlaceOrderController";
 import { IOrdersRepository } from "../../src/useCases/orders/ports/IOrdersRepository";
-import { OrdersActions } from "../doubles/OrdersActions";
 import { OrdersRepositoryInMemory } from "../doubles/repositories/OrdersRepositoryInMemory";
 
 describe("Place Order Controller", () => {
