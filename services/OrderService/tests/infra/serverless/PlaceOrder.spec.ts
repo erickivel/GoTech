@@ -7,6 +7,7 @@ describe("Place Order Serverless Function", () => {
   });
 
   afterAll(async () => {
+    await prismaClient.productAmount.deleteMany();
     await prismaClient.products.deleteMany();
     await prismaClient.orders.deleteMany();
     await prismaClient.users.deleteMany();
@@ -45,19 +46,12 @@ describe("Place Order Serverless Function", () => {
 
     const placeOrderServerless = await handle(event, context);
 
-    console.log(placeOrderServerless);
-
     const bodyParsed = JSON.parse(placeOrderServerless.body);
-
-    // const expectedResponse = {
-
-    // }
 
     expect(bodyParsed).toHaveProperty("id");
     expect(bodyParsed).toHaveProperty("user");
     expect(bodyParsed.user.id).toEqual("user-id");
     expect(bodyParsed).toHaveProperty("products");
-    expect(bodyParsed.products[0].id).toEqual("product-id-1");
     expect(bodyParsed).toHaveProperty("total");
     expect(placeOrderServerless.statusCode).toEqual(201);
   });

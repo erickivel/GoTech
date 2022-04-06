@@ -4,17 +4,63 @@ import { prismaClient } from "../PrismaClient";
 
 export class PrismaOrdersRepository implements IOrdersRepository {
   async create(data: IOrderData): Promise<IOrderData> {
-    await prismaClient.products.createMany({
-      data: data.products.map(product => {
-        return {
+    // Update the product if it already exists or create it otherwise
+    data.products.map(async (product) => {
+      const productExists = await prismaClient.products.findFirst({
+        where: {
           id: product.id,
-          name: product.name,
-          price: product.price,
-          amount: product.amount,
         }
-      }),
-      skipDuplicates: true,
+      });
+
+      if (productExists !== null) {
+        await prismaClient.products.update({
+          where: {
+            id: product.id,
+          },
+          data: {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+          }
+        });
+      } else {
+        console.log("ProductCreated: " + product.id)
+        console.log("ProductCreated: " + product.name)
+        await prismaClient.products.create({
+          data: {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+          }
+        });
+      }
     });
+
+    const userExists = await prismaClient.users.findFirst({
+      where: {
+        id: data.user.id,
+      }
+    });
+
+    if (userExists !== null && (userExists.name !== data.user.name || userExists.email !== data.user.email)) {
+      await prismaClient.users.update({
+        where: {
+          id: data.user.id,
+        },
+        data: {
+          name: data.user.name,
+          email: data.user.email,
+        }
+      });
+    } else {
+      await prismaClient.users.create({
+        data: {
+          id: data.user.id,
+          name: data.user.name,
+          email: data.user.email,
+        },
+      });
+    }
 
 
     const order = await prismaClient.orders.create({
@@ -22,16 +68,9 @@ export class PrismaOrdersRepository implements IOrdersRepository {
         id: data.id,
         total: data.total,
         user: {
-          connectOrCreate: {
-            where: {
-              id: data.user.id
-            },
-            create: {
-              id: data.user.id,
-              name: data.user.name,
-              email: data.user.email,
-            }
-          }
+          connect: {
+            id: data.user.id
+          },
         },
         products: {
           connect: data.products.map(product => {
@@ -40,12 +79,23 @@ export class PrismaOrdersRepository implements IOrdersRepository {
             }
           }),
         },
+        productsAmount: {
+          createMany: {
+            data: data.products.map(product => {
+              return {
+                amount: product.amount,
+                productId: product.id
+              }
+            }),
+          },
+        },
         createdAt: data.createdAt,
         updatedAt: data.updatedAt,
       },
       include: {
         products: true,
         user: true,
+        productsAmount: true,
       },
     });
 
@@ -57,8 +107,11 @@ export class PrismaOrdersRepository implements IOrdersRepository {
         email: order.user.email,
       },
       products: order.products.map(product => {
+        const productAmount = order.productsAmount.find(productAmount => productAmount.productId === product.id);
+
         return {
           ...product,
+          amount: Number(productAmount?.amount),
           price: Number(product.price),
         }
       }),
@@ -75,6 +128,7 @@ export class PrismaOrdersRepository implements IOrdersRepository {
       include: {
         user: true,
         products: true,
+        productsAmount: true,
       },
     });
 
@@ -87,8 +141,11 @@ export class PrismaOrdersRepository implements IOrdersRepository {
           email: order.user.email,
         },
         products: order.products.map(product => {
+          const productAmount = order.productsAmount.find(productAmount => productAmount.productId === product.id);
+
           return {
             ...product,
+            amount: Number(productAmount?.amount),
             price: Number(product.price),
           }
         }),

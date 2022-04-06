@@ -19,14 +19,26 @@ model Users {
 }
 
 model Products {
-  id     String  @id
-  name   String  @unique
-  price  Decimal @db.Decimal(8, 2)
-  amount Int
+  id    String  @id
+  name  String  @unique
+  price Decimal @db.Decimal(8, 2)
 
-  orders Orders[]
+  orders        Orders[]
+  ProductAmount ProductAmount[]
 
   @@map("products")
+}
+
+model ProductAmount {
+  id        String @id @default(uuid())
+  amount    Int
+  productId String
+  ordersId  String
+
+  product Products @relation(fields: [productId], references: [id])
+  Orders  Orders   @relation(fields: [ordersId], references: [id])
+
+  @@map("productAmount")
 }
 
 model Orders {
@@ -36,8 +48,9 @@ model Orders {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  user     Users      @relation(fields: [userId], references: [id])
-  products Products[]
+  user           Users           @relation(fields: [userId], references: [id])
+  products       Products[]
+  productsAmount ProductAmount[]
 
   @@map("orders")
 }
