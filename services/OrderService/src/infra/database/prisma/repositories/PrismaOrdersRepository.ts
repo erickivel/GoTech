@@ -24,8 +24,6 @@ export class PrismaOrdersRepository implements IOrdersRepository {
           }
         });
       } else {
-        console.log("ProductCreated: " + product.id)
-        console.log("ProductCreated: " + product.name)
         await prismaClient.products.create({
           data: {
             id: product.id,
@@ -42,7 +40,7 @@ export class PrismaOrdersRepository implements IOrdersRepository {
       }
     });
 
-    if (userExists !== null && (userExists.name !== data.user.name || userExists.email !== data.user.email)) {
+    if (userExists !== null) {
       await prismaClient.users.update({
         where: {
           id: data.user.id,
