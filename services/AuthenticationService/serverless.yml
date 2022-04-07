@@ -30,12 +30,6 @@ functions:
       - http:
           path: /sessions
           method: POST
-  hello:
-    handler: src/infra/serverless/functions/hello.handle
-    events:
-      - http:
-          path: /
-          method: GET
 
 package:
   exclude:
