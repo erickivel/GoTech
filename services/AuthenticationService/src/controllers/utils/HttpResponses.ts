@@ -5,21 +5,6 @@ export const ok = (data: any): IHttpResponse => ({
   body: data
 })
 
-export const created = (data: any): IHttpResponse => ({
-  statusCode: 201,
-  body: data
-})
-
-export const updated = (data: any): IHttpResponse => ({
-  statusCode: 201,
-  body: data
-})
-
-export const unauthorized = (error: any): IHttpResponse => ({
-  statusCode: 401,
-  body: error
-})
-
 export const forbidden = (error: any): IHttpResponse => ({
   statusCode: 403,
   body: error
