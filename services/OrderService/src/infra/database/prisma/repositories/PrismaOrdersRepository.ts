@@ -121,8 +121,11 @@ export class PrismaOrdersRepository implements IOrdersRepository {
     return OrderFormatted;
   };
 
-  async listAll(): Promise<IOrderData[]> {
+  async filterByUserId(userId: string): Promise<IOrderData[]> {
     const orders = await prismaClient.orders.findMany({
+      where: {
+        userId,
+      },
       include: {
         user: true,
         products: true,
