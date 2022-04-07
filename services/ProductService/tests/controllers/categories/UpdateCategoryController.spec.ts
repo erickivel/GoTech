@@ -33,7 +33,9 @@ describe("Update Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -73,8 +75,6 @@ describe("Update Category Controller", () => {
     const fakeRequest = {
       requestContext: {
         authorizer: {
-          user: {
-          }
         }
       },
       body: {
@@ -107,7 +107,9 @@ describe("Update Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -140,7 +142,9 @@ describe("Update Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -180,7 +184,9 @@ describe("Update Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -216,7 +222,9 @@ describe("Update Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },

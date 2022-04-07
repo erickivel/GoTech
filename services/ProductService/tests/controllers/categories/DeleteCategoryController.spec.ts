@@ -33,7 +33,9 @@ describe("Delete Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -66,8 +68,6 @@ describe("Delete Category Controller", () => {
     const fakeRequest = {
       requestContext: {
         authorizer: {
-          user: {
-          }
         }
       },
       pathParameters: {
@@ -97,7 +97,9 @@ describe("Delete Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -129,7 +131,9 @@ describe("Delete Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            email: "admin@example.com",
+            name: "Admin",
           }
         }
       },

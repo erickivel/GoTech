@@ -21,7 +21,9 @@ describe("Create Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -42,7 +44,9 @@ describe("Create Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -60,8 +64,6 @@ describe("Create Category Controller", () => {
     const fakeRequest = {
       requestContext: {
         authorizer: {
-          user: {
-          }
         }
       },
       body: {
@@ -80,7 +82,9 @@ describe("Create Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -103,7 +107,9 @@ describe("Create Category Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },

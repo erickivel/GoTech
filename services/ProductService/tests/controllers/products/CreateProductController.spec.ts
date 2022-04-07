@@ -35,7 +35,9 @@ describe("Create Product Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -70,8 +72,6 @@ describe("Create Product Controller", () => {
     const fakeRequest = {
       requestContext: {
         authorizer: {
-          user: {
-          }
         }
       },
       body: {
@@ -102,7 +102,9 @@ describe("Create Product Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           },
         },
       },
@@ -130,7 +132,9 @@ describe("Create Product Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -163,7 +167,9 @@ describe("Create Product Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -195,7 +201,9 @@ describe("Create Product Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -213,7 +221,9 @@ describe("Create Product Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
@@ -231,7 +241,9 @@ describe("Create Product Controller", () => {
       requestContext: {
         authorizer: {
           user: {
-            id: "admin-id"
+            id: "admin-id",
+            name: "Admin",
+            email: "admin@example.com",
           }
         }
       },
