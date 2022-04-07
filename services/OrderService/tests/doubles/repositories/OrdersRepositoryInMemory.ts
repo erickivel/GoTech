@@ -10,7 +10,9 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
     return data;
   };
 
-  async listAll(): Promise<IOrderData[]> {
-    return this.orders;
+  async filterByUserId(userId: string): Promise<IOrderData[]> {
+    const orders = this.orders.filter(order => order.user.id === userId);
+
+    return orders;
   }
 };
