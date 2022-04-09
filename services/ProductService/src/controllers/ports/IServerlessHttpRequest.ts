@@ -9,5 +9,12 @@ export interface IServerlessHttpRequest {
     },
   },
   pathParameters?: any,
-  body?: any;
+  body?: any,
+  Records?: [
+    {
+      Sns: {
+        Message: string;
+      }
+    }
+  ]
 };

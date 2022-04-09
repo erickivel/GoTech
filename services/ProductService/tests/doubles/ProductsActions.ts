@@ -15,4 +15,10 @@ export class ProductsActions {
 
     return product;
   };
+
+  async listAll(): Promise<IProductData[]> {
+    const products = await this.productsRepository.listAll();
+
+    return products;
+  }
 };

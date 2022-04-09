@@ -52,5 +52,30 @@ export class PrismaProductsRepository implements IProductsRepository {
     })
 
     return formattedProducts;
+  };
+
+  async findById(id: string): Promise<IProductData | null> {
+    const productOrNull = await prismaClient.products.findFirst({
+      where: {
+        id,
+      }
+    });
+
+    return productOrNull ? {
+      ...productOrNull,
+      price: Number(productOrNull.price),
+    } : null;
+  };
+
+  async updateStock(id: string, newStock: number): Promise<void> {
+    await prismaClient.products.update({
+      where: {
+        id,
+      },
+      data: {
+        stock: newStock,
+        updatedAt: new Date(),
+      },
+    });
   }
 };
