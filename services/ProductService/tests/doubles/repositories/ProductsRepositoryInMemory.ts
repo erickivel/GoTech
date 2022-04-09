@@ -18,5 +18,17 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
 
   async listAll(): Promise<IProductData[]> {
     return this.products;
+  };
+
+  async findById(id: string): Promise<IProductData | null> {
+    const product = this.products.find(product => product.id === id);
+
+    return product || null;
+  };
+
+  async updateStock(id: string, newStock: number): Promise<void> {
+    const findIndex = this.products.findIndex(product => product.id === id);
+
+    this.products[findIndex].stock = newStock;
   }
 };
