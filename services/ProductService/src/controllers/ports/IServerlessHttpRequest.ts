@@ -12,9 +12,7 @@ export interface IServerlessHttpRequest {
   body?: any,
   Records?: [
     {
-      Sns: {
-        Message: string;
-      }
+      body: string
     }
   ]
 };

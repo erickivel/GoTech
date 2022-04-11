@@ -74,8 +74,8 @@ export class PrismaProductsRepository implements IProductsRepository {
       },
       data: {
         stock: newStock,
-        updatedAt: new Date(),
-      },
+      }
+
     });
   }
 };

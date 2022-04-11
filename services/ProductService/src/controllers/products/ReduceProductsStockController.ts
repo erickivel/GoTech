@@ -13,7 +13,7 @@ export class ReduceProductsStockController implements IController {
         return badRequest("Message not received!");
       };
 
-      const messageInString = request.Records[0].Sns.Message;
+      const messageInString = request.Records[0].body;
 
       const messageParsed = JSON.parse(messageInString);
 

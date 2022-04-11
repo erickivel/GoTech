@@ -48,6 +48,13 @@ functions:
           method: POST
           path: /products
           cors: true
+  ReduceProductStock:
+    handler: src/infra/serverless/functions/ReduceProductStock.handle
+    events:
+      - sqs: 
+          arn: ${file(./serverless-secrets.json):SQS_ARN}
+          batchSize: 1
+      
   
 package:
   exclude:
