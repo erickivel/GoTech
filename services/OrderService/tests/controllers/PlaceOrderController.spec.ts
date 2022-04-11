@@ -1,7 +1,9 @@
 import { container } from "tsyringe";
 
 import { PlaceOrderController } from "../../src/controllers/orders/PlaceOrderController";
+import { IMessagingAdapter } from "../../src/useCases/orders/ports/IMessagingAdapter";
 import { IOrdersRepository } from "../../src/useCases/orders/ports/IOrdersRepository";
+import { FakeMessagingAdapter } from "../doubles/FakeMessagingAdapter";
 import { OrdersRepositoryInMemory } from "../doubles/repositories/OrdersRepositoryInMemory";
 
 describe("Place Order Controller", () => {
@@ -9,6 +11,7 @@ describe("Place Order Controller", () => {
 
   beforeEach(() => {
     container.registerSingleton<IOrdersRepository>("OrdersRepository", OrdersRepositoryInMemory);
+    container.registerSingleton<IMessagingAdapter>("MessagingAdapter", FakeMessagingAdapter);
     placeOrderController = new PlaceOrderController();
   });
 

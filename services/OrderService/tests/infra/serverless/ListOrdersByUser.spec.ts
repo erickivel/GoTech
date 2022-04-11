@@ -1,3 +1,5 @@
+import { Context } from "aws-lambda";
+
 import { prismaClient } from "../../../src/infra/database/prisma/PrismaClient";
 import { handle as PlaceOrder } from "../../../src/infra/serverless/functions/PlaceOrder";
 import { handle as ListOrdersByUser } from "../../../src/infra/serverless/functions/ListOrdersByUser";
@@ -37,9 +39,9 @@ describe("List Orders By User Serverless Function", () => {
         ]
       }
     };
-    const context = {};
+    const context = {} as Context;
 
-    const placeOrderServerless = await PlaceOrder(placeOrderEvent, context);
+    await PlaceOrder(placeOrderEvent, context);
 
     const listOrdersByUserEvent = {
       requestContext: {

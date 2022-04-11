@@ -1,14 +1,17 @@
 import { InvalidOrderTotalError } from "../../../src/domain/entities/Order/errors/InvalidOrderTotalError";
 import { PlaceOrderUseCase } from "../../../src/useCases/orders/PlaceOrderUseCase";
+import { FakeMessagingAdapter } from "../../doubles/FakeMessagingAdapter";
 import { OrdersRepositoryInMemory } from "../../doubles/repositories/OrdersRepositoryInMemory";
 
 describe("Place Order UseCase", () => {
   let ordersRepositoryInMemory: OrdersRepositoryInMemory;
+  let fakeMessagingAdapter: FakeMessagingAdapter;
   let placeOrderUseCase: PlaceOrderUseCase;
 
   beforeEach(() => {
     ordersRepositoryInMemory = new OrdersRepositoryInMemory();
-    placeOrderUseCase = new PlaceOrderUseCase(ordersRepositoryInMemory);
+    fakeMessagingAdapter = new FakeMessagingAdapter()
+    placeOrderUseCase = new PlaceOrderUseCase(ordersRepositoryInMemory, fakeMessagingAdapter);
   });
 
   it("should place an order", async () => {
