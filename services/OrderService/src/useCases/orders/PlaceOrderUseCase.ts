@@ -6,8 +6,7 @@ import { InvalidOrderTotalError } from '../../domain/entities/Order/errors/Inval
 import { IOrderData } from './ports/IOrderData';
 import { IOrdersRepository } from './ports/IOrdersRepository';
 import { Order } from '../../domain/entities/Order';
-
-
+import { IMessagingAdapter } from './ports/IMessagingAdapter';
 
 type User = {
   id: string;
@@ -32,6 +31,9 @@ export class PlaceOrderUseCase {
   constructor(
     @inject("OrdersRepository")
     private ordersRepository: IOrdersRepository,
+
+    @inject("MessagingAdapter")
+    private messagingAdapter: IMessagingAdapter
   ) { }
 
   async execute({ user, products }: IRequest): Promise<
@@ -55,6 +57,17 @@ export class PlaceOrderUseCase {
     }
 
     const order = await this.ordersRepository.create(orderOrError.value);
+
+    await this.messagingAdapter.sendMessage(JSON.stringify(
+      {
+        products: products.map(product => {
+          return {
+            id: product.id,
+            amount: product.amount,
+          }
+        })
+      }
+    ));
 
     return right(order);
   };

@@ -5,6 +5,7 @@ frameworkVersion: '3'
 plugins:
   - serverless-plugin-typescript
   - serverless-dotenv-plugin
+  - serverless-iam-roles-per-function
 
 provider:
   name: aws
@@ -18,6 +19,20 @@ provider:
       - ${file(./serverless-secrets.json):SUBNET_ID1}
       - ${file(./serverless-secrets.json):SUBNET_ID2}
       - ${file(./serverless-secrets.json):SUBNET_ID3}
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action: 
+            - sqs:SendMessage
+          Resource: ${file(./serverless-secrets.json):SQS_ARN}
+
+resources:
+  Resources:
+    SQS: 
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: orders-NewOrder
 
 functions:
   PlaceOrder:
