@@ -5,7 +5,6 @@ frameworkVersion: '3'
 plugins:
   - serverless-plugin-typescript
   - serverless-dotenv-plugin
-  - serverless-iam-roles-per-function
 
 provider:
   name: aws
