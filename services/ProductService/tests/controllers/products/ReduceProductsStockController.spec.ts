@@ -1,7 +1,6 @@
 import { container } from "tsyringe";
 import { IServerlessHttpRequest } from "../../../src/controllers/ports/IServerlessHttpRequest";
 
-import { ListAllProductsController } from "../../../src/controllers/products/ListAllProductsController";
 import { ReduceProductsStockController } from "../../../src/controllers/products/ReduceProductsStockController";
 import { ICategoriesRepository } from "../../../src/useCases/categories/ports/ICategoriesRepository";
 import { IProductsRepository } from "../../../src/useCases/products/ports/IProductsRepository";

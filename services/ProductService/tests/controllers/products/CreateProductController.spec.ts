@@ -1,6 +1,5 @@
 import { container } from "tsyringe";
 
-import { CreateCategoryController } from "../../../src/controllers/categories/CreateCategoryController";
 import { CreateProductController } from "../../../src/controllers/products/CreateProductController";
 import { ICategoriesRepository } from "../../../src/useCases/categories/ports/ICategoriesRepository";
 import { IProductsRepository } from "../../../src/useCases/products/ports/IProductsRepository";
