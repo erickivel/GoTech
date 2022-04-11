@@ -9,7 +9,7 @@ describe("Reduce Products Stock Serverless Function", () => {
 
     await prismaClient.$connect();
 
-    const category = await prismaClient.categories.create({
+    await prismaClient.categories.create({
       data: {
         id: "category-id",
         name: "Category",
@@ -18,13 +18,23 @@ describe("Reduce Products Stock Serverless Function", () => {
       }
     });
 
+
+  });
+
+  afterAll(async () => {
+    await prismaClient.products.deleteMany();
+    await prismaClient.categories.deleteMany();
+    await prismaClient.$disconnect();
+  });
+
+  it("should return status code 200 if products stock are reduced", async () => {
     await prismaClient.products.create({
       data: {
         id: "fake-id-1",
         name: "Product 1",
         price: 120.13,
         stock: 10,
-        categoryId: category.id,
+        categoryId: "category-id",
         createdAt: dateNow,
         updatedAt: dateNow,
       }
@@ -36,20 +46,12 @@ describe("Reduce Products Stock Serverless Function", () => {
         name: "Product 2",
         price: 120.13,
         stock: 10,
-        categoryId: category.id,
+        categoryId: "category-id",
         createdAt: dateNow,
         updatedAt: dateNow,
       }
     });
-  });
 
-  afterAll(async () => {
-    // await prismaClient.products.deleteMany();
-    // await prismaClient.categories.deleteMany();
-    await prismaClient.$disconnect();
-  });
-
-  it("should return status code 200 if products stock are reduced", async () => {
     const message = JSON.stringify({
       products: [
         {
@@ -66,9 +68,7 @@ describe("Reduce Products Stock Serverless Function", () => {
     const event = {
       Records: [
         {
-          Sns: {
-            Message: message,
-          }
+          body: message
         },
       ]
     };

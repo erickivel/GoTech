@@ -134,7 +134,7 @@ describe("Reduce Products Stock UseCase", () => {
         id: "fake-id-1",
         name: "Product 1",
         price: 120.13,
-        stock: 7,
+        stock: 10,
         categoryId: category.id,
         createdAt: dateNow,
         updatedAt: dateNow,
@@ -153,7 +153,7 @@ describe("Reduce Products Stock UseCase", () => {
     const products = await productsRepositoryInMemory.listAll();
 
     expect(response.isLeft()).toBeTruthy();
-    expect(response.value).toEqual(new ProductNotFoundError("inexistent-id"));
+    expect(response.value).toEqual(new ProductNotFoundError());
     expect(products).toEqual(expectedResponse);
   });
 
@@ -195,7 +195,7 @@ describe("Reduce Products Stock UseCase", () => {
         },
         {
           id: "fake-id-2",
-          amount: 9999999
+          amount: 999999
         },
       ]
     });

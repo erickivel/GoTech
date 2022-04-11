@@ -74,9 +74,7 @@ describe("Reduce Products Stock Controller", () => {
       requestContext: {},
       Records: [
         {
-          Sns: {
-            Message: message,
-          }
+          body: message,
         },
       ]
     } as IServerlessHttpRequest;
@@ -230,9 +228,7 @@ describe("Reduce Products Stock Controller", () => {
       requestContext: {},
       Records: [
         {
-          Sns: {
-            Message: message,
-          }
+          body: message
         },
       ]
     } as IServerlessHttpRequest;
