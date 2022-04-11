@@ -55,7 +55,6 @@ functions:
           arn: ${file(./serverless-secrets.json):SQS_ARN}
           batchSize: 1
       
-  
 package:
   exclude:
     - ./node_modules/prisma/**
