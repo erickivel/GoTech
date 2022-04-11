@@ -28,54 +28,37 @@ export class ReduceProductsStockUseCase {
       null
     >
   > {
-    let productNotFoundError = {
-      boolean: false,
-      product: {
-        id: "",
-      },
-    };
-    let productInsufficientStockError = {
-      boolean: false,
-      product: {
-        id: "",
-      },
-    };
+    const products = await Promise.all(productsInfos.map(async product => {
+      return await this.productsRepository.findById(product.id);
+    }));
 
-    async function handleProducts(productsRepository: IProductsRepository) {
-      productsInfos.forEach(async product => {
-        const productExists = await productsRepository.findById(product.id);
+    for (const product of products) {
+      if (product === null) {
+        return left(new ProductNotFoundError());
+      };
 
-        if (productNotFoundError.boolean || productInsufficientStockError.boolean) {
-          return;
-        }
+      const productInfo = productsInfos.find(productInfo => product.id === productInfo.id);
 
-        if (productExists === null) {
-          productNotFoundError.boolean = true;
-          productNotFoundError.product.id = product.id;
-          return;
-        };
+      if (!productInfo) {
+        return left(new ProductNotFoundError(product.id))
+      };
 
-        if (product.amount > productExists.stock) {
-          productInsufficientStockError.boolean = true;
-          productInsufficientStockError.product.id = product.id;
-          return;
-        };
-
-        const stockUpdated = Number(productExists.stock) - Number(product.amount);
-
-        await productsRepository.updateStock(product.id, stockUpdated);
-      });
+      if (productInfo.amount > product.stock) {
+        return left(new ProductInsufficientStockError(product.id));
+      };
     }
 
-    await handleProducts(this.productsRepository);
+    await Promise.all(productsInfos.map(async product => {
+      const productInRepository = products.find(p => p?.id === product.id);
 
-    if (productNotFoundError.boolean) {
-      return left(new ProductNotFoundError(productNotFoundError.product.id))
-    };
+      if (!productInRepository) {
+        return left(new ProductNotFoundError(product.id))
+      };
 
-    if (productInsufficientStockError.boolean) {
-      return left(new ProductInsufficientStockError(productInsufficientStockError.product.id));
-    };
+      const stockUpdated = Number(productInRepository?.stock) - Number(product.amount);
+
+      return await this.productsRepository.updateStock(product.id, stockUpdated).then();
+    }))
 
     return right(null);
   }
