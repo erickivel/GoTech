@@ -1,9 +1,9 @@
-# Project Overview
+# Project Overview:
 <p align="center" >
   <img src="./assets/project-overview.png" alt="project-overview"  style="align: center" width="90%"/>
 </p>
 
-# Database Overview
+# Database Overview:
 <p align="center" >
   <img src="./assets/database-overview.png" alt="project-overview"  style="align: center" width="70%"/>
 </p>
