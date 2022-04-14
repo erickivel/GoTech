@@ -24,7 +24,6 @@ jobs:
         
       - name: Install Dependencies
         run: |
-          ls
           cd ./services/UserService
           yarn
           cd ../ProductService
@@ -32,9 +31,9 @@ jobs:
       
       - name: Build
         run: |
-          cd services/UserService
+          cd ./services/UserService
           yarn build
-          cd services/ProductService
+          cd ../ProductService
           yarn build
           
       - uses: appleboy/scp-action@master
