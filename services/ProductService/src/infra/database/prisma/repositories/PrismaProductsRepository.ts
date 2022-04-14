@@ -44,7 +44,7 @@ export class PrismaProductsRepository implements IProductsRepository {
       }
     });
 
-    const formattedProducts = products.map(product => {
+    const formattedProducts = products.map((product: any) => {
       return {
         ...product,
         price: Number(product.price),
