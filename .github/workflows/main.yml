@@ -43,4 +43,4 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "., !services/UserService/node_modules, !services/ProductService/node_modules"
-          target: "~/app/test"
+          target: "~/app/GoTech"
