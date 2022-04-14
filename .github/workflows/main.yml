@@ -1,0 +1,46 @@
+name: CI
+
+on:
+
+  push:
+    branches: [ main ]
+    paths:
+      - services/UserService/**
+      - services/ProductService/**
+      
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14.0'
+        
+      - name: Install Dependencies
+        run: |
+          cd services/UserService,
+          yarn,
+          cd services/ProductService,
+          yarn
+      
+      - name: Build
+        run: |
+          cd services/UserService,
+          yarn build,
+          cd services/ProductService,
+          yarn build
+          
+      - uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "., !services/UserService/node_modules, !services/ProductService/node_modules"
+          target: "~/app/test"
