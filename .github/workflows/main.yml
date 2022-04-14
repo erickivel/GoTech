@@ -24,9 +24,10 @@ jobs:
         
       - name: Install Dependencies
         run: |
-          cd services/UserService,
+          ls,
+          cd ./services/UserService,
           yarn,
-          cd services/ProductService,
+          cd ../ProductService,
           yarn
       
       - name: Build
