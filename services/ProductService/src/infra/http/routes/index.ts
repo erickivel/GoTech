@@ -6,6 +6,6 @@ import { productsRoutes } from './products.routes';
 const router = Router();
 
 router.use("/categories", categoriesRoutes);
-router.use("/products", productsRoutes);
+router.use("/", productsRoutes);
 
 export { router };
