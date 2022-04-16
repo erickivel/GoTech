@@ -53,7 +53,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            PATH=$PATH:/home/${{secrets.SSH_USER_NAME}}/.nvm/versions/node/v16.14.0/bin/
+            PATH=$PATH:/home/${{ secrets.SSH_USER }}/.nvm/versions/node/v16.14.0/bin/
             node -v
             npm -v
             yarn -v
