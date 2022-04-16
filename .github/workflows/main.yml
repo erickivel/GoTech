@@ -52,14 +52,10 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: |
-            ls -a
-            yarn -v
-            cd ~/app/GoTech/services/UserService
-            yarn
-            yarn prisma:migrate
-            pm2 restart UserService
-            cd ../ProductService
-            yarn
-            yarn prisma:migrate
-            pm2 restart ProductService
+          script: cd ~/app/GoTech/services/UserService && yarn
+            #yarn prisma:migrate
+            #pm2 restart UserService
+            #cd ../ProductService
+            #yarn
+            #yarn prisma:migrate
+            #pm2 restart ProductService
