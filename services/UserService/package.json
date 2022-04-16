@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "prisma migrate deploy --schema ./src/infra/database/prisma/schema.prisma && dotenv -e .env -- node ./dist/src/infra/http/server.js",
-    "prisma:migrate": "dotenv -e .env.development -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma",
+    "prisma:migrate": "dotenv -e .env -- prisma migrate deploy --schema ./src/infra/database/prisma/schema.prisma",
     "dev": "dotenv -e .env.development -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma && dotenv -e .env.development -- ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/infra/http/server.ts",
     "test": "dotenv -e .env.test -- prisma migrate dev --schema ./src/infra/database/prisma/schema.prisma && dotenv -e .env.test -- jest --runInBand"
   },
