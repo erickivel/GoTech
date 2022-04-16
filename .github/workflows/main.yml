@@ -53,7 +53,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            source .bashrc
+            export PATH="$PATH:/home/***/.nvm/versions/node/v16.14.0/bin/pm2:/home/***/.nvm/versions/node/v16.14.0/bin/pm2"
             cd ~/app/GoTech/services/UserService
             yarn
             yarn prisma:migrate
