@@ -50,11 +50,12 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
-            whoami
-            cd app/GoTech/services/UserService
+            ls -a
+            yarn -v
+            cd ~/app/GoTech/services/UserService
             yarn
             yarn prisma:migrate
             pm2 restart UserService
