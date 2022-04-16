@@ -54,7 +54,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             whoami
-            cd ~/app/GoTech/services/UserService
+            cd app/GoTech/services/UserService
             yarn
             yarn prisma:migrate
             pm2 restart UserService
