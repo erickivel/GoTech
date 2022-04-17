@@ -13,6 +13,8 @@ export class UserProfileController implements IController {
     try {
       const userProfileUseCase = container.resolve(UserProfileUseCase);
 
+      console.log(request);
+
       if (!request.user || !request.user.id) {
         return badRequest(new MissingParamError("user id").message);
       };
