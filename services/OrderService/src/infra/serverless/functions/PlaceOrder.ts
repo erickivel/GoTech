@@ -7,6 +7,8 @@ import { MiddyMiddleware } from "../utils/commonMiddleware";
 const PlaceOrder = async (event: any) => {
   const placeOrderController = new PlaceOrderController();
 
+  console.log(event);
+
   const response = await placeOrderController.handle(event);
 
   return {

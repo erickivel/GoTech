@@ -11,9 +11,9 @@ import { IsRequiredParamsMissing } from "../utils/IsRequiredParamsMissing";
 export class PlaceOrderController implements IController {
   requiredParams = ["products"];
 
-  async handle(request: IServerlessHttpRequest): Promise<IHttpResponse> {
+  async handle(request: any): Promise<IHttpResponse> {
     try {
-      const authorizer = request.requestContext.authorizer
+      const authorizer = request.requestContext.authorizer.lambda;
 
       if (!authorizer?.user || !authorizer.user?.id) {
         return unauthorized("User is not authenticated!");
