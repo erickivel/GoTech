@@ -9,6 +9,8 @@ import { UserProfileController } from '../../../controllers/users/UserProfileCon
 import { routeAdapter } from './RouteAdapter';
 
 import { UserIdTestMiddleware } from '../../../../tests/doubles/UserIdTestMiddleware';
+import { adaptedEnsureAuthenticated } from '../middlewares/adaptedEnsureAuthenticated';
+import { adaptedEnsureAdmin } from '../middlewares/adaptedEnsureAdmin';
 
 export const usersRoutes = Router();
 
@@ -28,9 +30,9 @@ if (process.env.TEST === 'true') {
   usersRoutes.put("/admin/update", UserIdTestMiddleware, routeAdapter(adminUpdateUserController));
 } else {
   usersRoutes.post("/", routeAdapter(createUserController));
-  usersRoutes.put("/update", routeAdapter(updateUserController));
-  usersRoutes.get("/", routeAdapter(listAllUsersController));
-  usersRoutes.get("/profile", routeAdapter(userProfileController));
-  usersRoutes.delete("/:user_id", routeAdapter(deleteUserController));
-  usersRoutes.put("/admin/update", routeAdapter(adminUpdateUserController));
+  usersRoutes.put("/update", adaptedEnsureAuthenticated, routeAdapter(updateUserController));
+  usersRoutes.get("/", adaptedEnsureAdmin, routeAdapter(listAllUsersController));
+  usersRoutes.get("/profile", adaptedEnsureAuthenticated, routeAdapter(userProfileController));
+  usersRoutes.delete("/:user_id", adaptedEnsureAdmin, routeAdapter(deleteUserController));
+  usersRoutes.put("/admin/update", adaptedEnsureAdmin, routeAdapter(adminUpdateUserController));
 }
