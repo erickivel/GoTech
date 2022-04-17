@@ -50,9 +50,10 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
+            PATH=$PATH:/home/${{ secrets.SSH_USER }}/.nvm/versions/node/v16.14.0/bin/
             cd ~/app/GoTech/services/UserService
             yarn
             yarn prisma:migrate
@@ -61,4 +62,3 @@ jobs:
             yarn
             yarn prisma:migrate
             pm2 restart ProductService
-            
