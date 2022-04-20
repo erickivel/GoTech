@@ -11,7 +11,7 @@
 
 # Project Overview:
 <p align="center" >
-  <img src="./assets/projectOverview.jpg" alt="project-overview"  style="align: center" width="90%"/>
+  <img src="./assets/projectOverview.jpg" alt="project-overview"  style="align: center"/>
 </p>
 
 ---
