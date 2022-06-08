@@ -52,7 +52,7 @@ describe("List All Products Route", () => {
 
   it("should return status code 200 and all the products", async () => {
     const response = await request(app)
-      .get("/products")
+      .get("/")
       .expect(200);
 
     const bodyExpectedResponse = [
