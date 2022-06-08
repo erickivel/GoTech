@@ -17,7 +17,7 @@ describe("Delete Category Controller", () => {
     container.clearInstances();
   });
 
-  it("should return status code 200 and successfully message when the user is deleted", async () => {
+  it("should return status code 200 and successfully message when the category is deleted", async () => {
     const categoriesActions = container.resolve(CategoriesActions);
 
     const dateNow = new Date()
