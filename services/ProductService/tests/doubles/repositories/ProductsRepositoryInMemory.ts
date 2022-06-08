@@ -31,4 +31,10 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
 
     this.products[findIndex].stock = newStock;
   }
+
+  async deleteOne(id: string): Promise<void> {
+    const productIndex = this.products.findIndex(product => product.id === id);
+
+    this.products.splice(productIndex, 1);
+  }
 };
