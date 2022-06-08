@@ -6,4 +6,5 @@ export interface IProductsRepository {
   findById(id: string): Promise<IProductData | null>;
   listAll(): Promise<IProductData[]>;
   updateStock(id: string, newStock: number): Promise<void>;
+  deleteOne(product_id: string): Promise<void>;
 };
