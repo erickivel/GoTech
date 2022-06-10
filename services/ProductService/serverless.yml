@@ -48,6 +48,13 @@ functions:
           method: POST
           path: /products
           cors: true
+  DeleteProduct:
+    handler: src/infra/serverless/functions/DeleteProduct.handle
+    events:
+      - http:
+          method: DELETE
+          path: /products/delete/{id}
+          cors: true
   ReduceProductStock:
     handler: src/infra/serverless/functions/ReduceProductStock.handle
     events:
@@ -58,7 +65,8 @@ functions:
 package:
   exclude:
     - ./node_modules/prisma/**
+    - ./node_modules/express/**
 
 custom:
   dotenv:
-    path: ".env.development"
+    path: ".env"
