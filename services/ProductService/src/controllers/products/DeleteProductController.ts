@@ -4,13 +4,12 @@ import { DeleteProductUseCase } from "../../useCases/products/DeleteProductUseCa
 import { MissingParamError } from "../errors/MissingParamError";
 import { IController } from "../ports/IController";
 import { IHttpResponse } from "../ports/IHttpResponse";
-import { IServerlessHttpRequest } from "../ports/IServerlessHttpRequest";
 import { badRequest, forbidden, ok, serverError, unauthorized } from "../utils/HttpResponses";
 
 export class DeleteProductController implements IController {
-  async handle(request: IServerlessHttpRequest): Promise<IHttpResponse> {
+  async handle(request: any): Promise<IHttpResponse> {
     try {
-      const authorizer = request.requestContext.authorizer;
+      const authorizer = request.requestContext.authorizer.lambda;
 
       if (!authorizer?.user || !authorizer.user?.id) {
         return unauthorized("User is not authenticated!");
