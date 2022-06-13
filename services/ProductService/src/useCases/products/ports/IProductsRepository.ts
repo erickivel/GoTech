@@ -7,4 +7,5 @@ export interface IProductsRepository {
   listAll(): Promise<IProductData[]>;
   updateStock(id: string, newStock: number): Promise<void>;
   deleteOne(product_id: string): Promise<void>;
-};
+  update(data: IProductData): Promise<IProductData>;
+}

@@ -1,5 +1,8 @@
 import { inject, injectable } from "tsyringe";
-import { left } from "../../logic/Either";
+import { Product } from "../../domain/entities/Product";
+import { left, right } from "../../logic/Either";
+import { CategoryNotFoundError } from "../categories/errors/CategoryNotFoundError";
+import { ICategoriesRepository } from "../categories/ports/ICategoriesRepository";
 import { ProductNotFoundError } from "./errors/ProductNotFoundError";
 import { IProductsRepository } from "./ports/IProductsRepository";
 
@@ -15,44 +18,52 @@ interface IRequest {
 export class UpdateProductUseCase {
   constructor(
     @inject("ProductsRepository")
-    private productsRepository: IProductsRepository
-  ) { }
+    private productsRepository: IProductsRepository,
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoriesRepository
+  ) {}
 
-  async execute({
-    product_id,
-    name,
-    stock,
-    price,
-    categoryId
-  }: IRequest) {
+  async execute({ product_id, name, stock, price, categoryId }: IRequest) {
     const product = await this.productsRepository.findById(product_id);
 
     if (!product) {
-      return left(new ProductNotFoundError(product_id))
-    };
+      return left(new ProductNotFoundError(product_id));
+    }
 
     const productAlreadyExists = await this.productsRepository.findByName(name);
 
-    if (productAlreadyExists && categoryAlreadyExists.id !== category.id) {
-      return left(new CategoryAlreadyExistsError(name));
-    };
-
-    const paramsToUpdate = {
-      id: category.id,
-      name,
-      createdAt: category.createdAt,
-      updatedAt: new Date(),
+    if (productAlreadyExists && productAlreadyExists.id !== product.id) {
+      return left(new ProductNotFoundError(name));
     }
 
-    const categoryOrError = Category.create(paramsToUpdate);
+    if (categoryId) {
+      const categoryExists = this.categoriesRepository.findById(categoryId);
 
-    if (categoryOrError.isLeft()) {
-      return left(categoryOrError.value);
+      if (!categoryExists) {
+        return left(new CategoryNotFoundError(categoryId));
+      }
+    }
+
+    const paramsToUpdate = {
+      id: product.id,
+      name,
+      stock,
+      price,
+      categoryId: categoryId ? categoryId : undefined,
+      createdAt: product.createdAt,
+      updatedAt: new Date(),
     };
 
-    const categoryUpdated = await this.categoriesRepository.update(categoryOrError.value);
+    const productOrError = Product.create(paramsToUpdate);
 
-    return right(categoryUpdated);
+    if (productOrError.isLeft()) {
+      return left(productOrError.value);
+    }
 
+    const productUpdated = await this.productsRepository.update(
+      productOrError.value
+    );
+
+    return right(productUpdated);
   }
 }
