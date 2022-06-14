@@ -3,6 +3,7 @@ import { Product } from "../../domain/entities/Product";
 import { left, right } from "../../logic/Either";
 import { CategoryNotFoundError } from "../categories/errors/CategoryNotFoundError";
 import { ICategoriesRepository } from "../categories/ports/ICategoriesRepository";
+import { ProductAlreadyExistsError } from "./errors/ProductAlreadyExistsError";
 import { ProductNotFoundError } from "./errors/ProductNotFoundError";
 import { IProductsRepository } from "./ports/IProductsRepository";
 
@@ -33,7 +34,7 @@ export class UpdateProductUseCase {
     const productAlreadyExists = await this.productsRepository.findByName(name);
 
     if (productAlreadyExists && productAlreadyExists.id !== product.id) {
-      return left(new ProductNotFoundError(name));
+      return left(new ProductAlreadyExistsError(name));
     }
 
     if (categoryId) {
