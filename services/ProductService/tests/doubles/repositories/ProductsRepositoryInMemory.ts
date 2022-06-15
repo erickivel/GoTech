@@ -8,33 +8,46 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
     this.products.push(data);
 
     return data;
-  };
+  }
 
   async findByName(name: string): Promise<IProductData | null> {
-    const product = this.products.find(product => product.name === name);
+    const product = this.products.find((product) => product.name === name);
 
     return product || null;
-  };
+  }
 
   async listAll(): Promise<IProductData[]> {
     return this.products;
-  };
+  }
 
   async findById(id: string): Promise<IProductData | null> {
-    const product = this.products.find(product => product.id === id);
+    const product = this.products.find((product) => product.id === id);
 
     return product || null;
-  };
+  }
 
   async updateStock(id: string, newStock: number): Promise<void> {
-    const findIndex = this.products.findIndex(product => product.id === id);
+    const findIndex = this.products.findIndex((product) => product.id === id);
 
     this.products[findIndex].stock = newStock;
   }
 
   async deleteOne(id: string): Promise<void> {
-    const productIndex = this.products.findIndex(product => product.id === id);
+    const productIndex = this.products.findIndex(
+      (product) => product.id === id
+    );
 
     this.products.splice(productIndex, 1);
   }
-};
+
+  async update(data: IProductData): Promise<IProductData> {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === data.id
+    );
+
+    this.products[productIndex] = data;
+
+    return this.products[productIndex];
+  }
+}
+
