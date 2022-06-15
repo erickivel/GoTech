@@ -1,10 +1,14 @@
 import { inject, injectable } from "tsyringe";
 import { Product } from "../../domain/entities/Product";
-import { left, right } from "../../logic/Either";
+import { InvalidProductNameError } from "../../domain/entities/Product/errors/InvalidProductNameError";
+import { InvalidProductPriceError } from "../../domain/entities/Product/errors/InvalidProductPriceError";
+import { InvalidProductStockError } from "../../domain/entities/Product/errors/InvalidProductStockError";
+import { Either, left, right } from "../../logic/Either";
 import { CategoryNotFoundError } from "../categories/errors/CategoryNotFoundError";
 import { ICategoriesRepository } from "../categories/ports/ICategoriesRepository";
 import { ProductAlreadyExistsError } from "./errors/ProductAlreadyExistsError";
 import { ProductNotFoundError } from "./errors/ProductNotFoundError";
+import { IProductData } from "./ports/IProductData";
 import { IProductsRepository } from "./ports/IProductsRepository";
 
 interface IRequest {
@@ -24,7 +28,23 @@ export class UpdateProductUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  async execute({ product_id, name, stock, price, categoryId }: IRequest) {
+  async execute({
+    product_id,
+    name,
+    stock,
+    price,
+    categoryId,
+  }: IRequest): Promise<
+    Either<
+      | ProductNotFoundError
+      | ProductAlreadyExistsError
+      | CategoryNotFoundError
+      | InvalidProductNameError
+      | InvalidProductStockError
+      | InvalidProductPriceError,
+      IProductData
+    >
+  > {
     const product = await this.productsRepository.findById(product_id);
 
     if (!product) {
