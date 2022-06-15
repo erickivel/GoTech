@@ -1,6 +1,4 @@
-import { InvalidCategoryNameError } from "../../../src/domain/entities/Category/errors/InvalidCategoryNameError";
 import { InvalidProductNameError } from "../../../src/domain/entities/Product/errors/InvalidProductNameError";
-import { CategoryAlreadyExistsError } from "../../../src/useCases/categories/errors/CategoryAlreadyExistsError";
 import { CategoryNotFoundError } from "../../../src/useCases/categories/errors/CategoryNotFoundError";
 import { ProductAlreadyExistsError } from "../../../src/useCases/products/errors/ProductAlreadyExistsError";
 import { ProductNotFoundError } from "../../../src/useCases/products/errors/ProductNotFoundError";
@@ -64,6 +62,7 @@ describe("Update Product UseCase", () => {
     }
     expect(productOrError.isRight()).toBeTruthy();
     expect(productOrError.value).toMatchObject(expectedResponse);
+    expect(productOrError.value.updatedAt).not.toEqual(dateNow);
   });
 
   it("should not update a product that doesn't exist", async () => {
