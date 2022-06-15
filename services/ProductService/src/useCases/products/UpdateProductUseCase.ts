@@ -38,7 +38,9 @@ export class UpdateProductUseCase {
     }
 
     if (categoryId) {
-      const categoryExists = this.categoriesRepository.findById(categoryId);
+      const categoryExists = await this.categoriesRepository.findById(
+        categoryId
+      );
 
       if (!categoryExists) {
         return left(new CategoryNotFoundError(categoryId));
