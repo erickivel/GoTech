@@ -1,6 +1,7 @@
 import { container } from "tsyringe";
+import { CategoryNotFoundError } from "../../useCases/categories/errors/CategoryNotFoundError";
+import { ProductAlreadyExistsError } from "../../useCases/products/errors/ProductAlreadyExistsError";
 
-import { DeleteProductUseCase } from "../../useCases/products/DeleteProductUseCase";
 import { UpdateProductUseCase } from "../../useCases/products/UpdateProductUseCase";
 import { MissingParamError } from "../errors/MissingParamError";
 import { IController } from "../ports/IController";
@@ -8,7 +9,6 @@ import { IHttpResponse } from "../ports/IHttpResponse";
 import {
   badRequest,
   forbidden,
-  ok,
   serverError,
   unauthorized,
   updated,
@@ -16,7 +16,7 @@ import {
 import { IsRequiredParamsMissing } from "../utils/IsRequiredParamsMissing";
 
 export class UpdateProductController implements IController {
-  requiredParams = ["name, stock, price, categoryId"];
+  requiredParams = ["name", "stock", "price"];
 
   async handle(request: any): Promise<IHttpResponse> {
     try {
@@ -52,11 +52,18 @@ export class UpdateProductController implements IController {
         categoryId,
       });
 
-      if (response.isLeft()) {
+      if (response.isRight()) {
+        return updated(response.value);
+      }
+
+      if (
+        response.value instanceof ProductAlreadyExistsError ||
+        response.value instanceof CategoryNotFoundError
+      ) {
         return forbidden(response.value.message);
       }
 
-      return updated(response.value);
+      return badRequest(response.value.message);
     } catch (error) {
       return serverError(error);
     }
