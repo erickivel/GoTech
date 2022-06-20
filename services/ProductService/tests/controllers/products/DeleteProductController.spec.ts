@@ -12,8 +12,14 @@ describe("Delete Product Controller", () => {
   let deleteProductController: DeleteProductController;
 
   beforeEach(() => {
-    container.registerSingleton<ICategoriesRepository>("CategoriesRepository", CategoriesRepositoryInMemory);
-    container.registerSingleton<IProductsRepository>("ProductsRepository", ProductsRepositoryInMemory);
+    container.registerSingleton<ICategoriesRepository>(
+      "CategoriesRepository",
+      CategoriesRepositoryInMemory
+    );
+    container.registerSingleton<IProductsRepository>(
+      "ProductsRepository",
+      ProductsRepositoryInMemory
+    );
     deleteProductController = new DeleteProductController();
   });
 
@@ -25,7 +31,7 @@ describe("Delete Product Controller", () => {
     const categoriesActions = container.resolve(CategoriesActions);
     const productsActions = container.resolve(ProductsActions);
 
-    const dateNow = new Date()
+    const dateNow = new Date();
 
     const category = await categoriesActions.create({
       id: "category-id",
@@ -57,16 +63,18 @@ describe("Delete Product Controller", () => {
     const fakeRequest = {
       requestContext: {
         authorizer: {
-          user: {
-            id: "admin-id",
-            name: "Admin",
-            email: "admin@example.com",
-          }
-        }
+          lambda: {
+            user: {
+              id: "admin-id",
+              name: "Admin",
+              email: "admin@example.com",
+            },
+          },
+        },
       },
       pathParameters: {
-        id: "product-id-2"
-      }
+        id: "product-id-2",
+      },
     };
 
     const result = await deleteProductController.handle(fakeRequest);
@@ -82,7 +90,7 @@ describe("Delete Product Controller", () => {
     const categoriesActions = container.resolve(CategoriesActions);
     const productsActions = container.resolve(ProductsActions);
 
-    const dateNow = new Date()
+    const dateNow = new Date();
 
     const category = await categoriesActions.create({
       id: "category-id",
@@ -103,11 +111,11 @@ describe("Delete Product Controller", () => {
 
     const fakeRequest = {
       requestContext: {
-        authorizer: {}
+        authorizer: {},
       },
       pathParameters: {
-        id: "product-id-1"
-      }
+        id: "product-id-1",
+      },
     };
 
     const result = await deleteProductController.handle(fakeRequest);
@@ -120,7 +128,7 @@ describe("Delete Product Controller", () => {
     const categoriesActions = container.resolve(CategoriesActions);
     const productsActions = container.resolve(ProductsActions);
 
-    const dateNow = new Date()
+    const dateNow = new Date();
 
     const category = await categoriesActions.create({
       id: "category-id",
@@ -142,15 +150,16 @@ describe("Delete Product Controller", () => {
     const fakeRequest = {
       requestContext: {
         authorizer: {
-          user: {
-            id: "admin-id",
-            name: "Admin",
-            email: "admin@example.com",
-          }
-        }
+          lambda: {
+            user: {
+              id: "admin-id",
+              name: "Admin",
+              email: "admin@example.com",
+            },
+          },
+        },
       },
-      pathParameters: {
-      }
+      pathParameters: {},
     };
 
     const result = await deleteProductController.handle(fakeRequest);
@@ -163,7 +172,7 @@ describe("Delete Product Controller", () => {
     const categoriesActions = container.resolve(CategoriesActions);
     const productsActions = container.resolve(ProductsActions);
 
-    const dateNow = new Date()
+    const dateNow = new Date();
 
     const category = await categoriesActions.create({
       id: "category-id",
@@ -187,16 +196,18 @@ describe("Delete Product Controller", () => {
     const fakeRequest = {
       requestContext: {
         authorizer: {
-          user: {
-            id: "admin-id",
-            email: "admin@example.com",
-            name: "Admin",
-          }
-        }
+          lambda: {
+            user: {
+              id: "admin-id",
+              name: "Admin",
+              email: "admin@example.com",
+            },
+          },
+        },
       },
       pathParameters: {
-        id: inexistentId
-      }
+        id: inexistentId,
+      },
     };
 
     const result = await deleteProductController.handle(fakeRequest);
@@ -205,3 +216,4 @@ describe("Delete Product Controller", () => {
     expect(result.statusCode).toBe(403);
   });
 });
+
