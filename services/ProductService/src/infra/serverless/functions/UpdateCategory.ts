@@ -11,8 +11,9 @@ const UpdateCategory = async (event: any) => {
 
   return {
     statusCode: response.statusCode,
-    body: JSON.stringify(response.body)
+    body: JSON.stringify(response.body),
   };
 };
 
 export const handle = MiddyMiddleware(UpdateCategory);
+
